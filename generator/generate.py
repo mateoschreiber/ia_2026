@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Generador de datos emulados (F1).
+"""Generador de datos emulados (F1/F2).
 
 Produce `data/database.json` con:
   - 5 zonas, 20 transformadores, 100 medidores.
   - 1 año horario (8760 h) de lecturas por medidor + clima horario.
   - Etiquetas de pérdida no técnica (ground truth) con 7 arquetipos.
+
+Cambios de la F2:
+  - IDs aleatorios alfanuméricos (sin prefijo secuencial), como los
+    `CONS_NO` de los datasets reales (SGCC), para no filtrar estructura.
+  - Más heterogeneidad por medidor (jitter en el perfil y en la
+    sensibilidad térmica) para un análisis más realista.
 
 Es determinista (semilla fija) y reproducible:
 
@@ -15,6 +21,7 @@ sigue siendo 100 % HTML/CSS/JS sin servidor).
 """
 import json
 import math
+import os
 import random
 from datetime import datetime, timedelta
 
@@ -24,6 +31,9 @@ INTERVAL_H = 1
 START = datetime(2025, 1, 1, 0, 0)
 OUT = "data/database.json"
 
+# Alfabeto sin caracteres ambiguos (0/O, 1/I/L).
+ID_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
 rng = random.Random(SEED)
 
 
@@ -31,13 +41,28 @@ def fmt(ts):
     return ts.strftime("%Y-%m-%dT%H:%M:%S")
 
 
+def random_id(r, length=8):
+    return "".join(r.choice(ID_ALPHABET) for _ in range(length))
+
+
+def unique_ids(r, n, length=8):
+    seen = set()
+    out = []
+    while len(out) < n:
+        c = random_id(r, length)
+        if c not in seen:
+            seen.add(c)
+            out.append(c)
+    return out
+
+
 # ---------------------------------------------------------------- topología
 ZONES = [
-    ("z001", "Centro", "Comercial y residencial denso"),
-    ("z002", "Villa Morra", "Piloto AMI, alta carga de aire acondicionado"),
-    ("z003", "Lambaré", "Residencial medio"),
-    ("z004", "Fernando de la Mora", "Mixto residencial/comercial"),
-    ("z005", "Luque", "Residencial e industrial liviano"),
+    ("Centro", "Comercial y residencial denso"),
+    ("Villa Morra", "Piloto AMI, alta carga de aire acondicionado"),
+    ("Lambaré", "Residencial medio"),
+    ("Fernando de la Mora", "Mixto residencial/comercial"),
+    ("Luque", "Residencial e industrial liviano"),
 ]
 N_TRANSFORMERS = 20
 N_METERS = 100
@@ -61,17 +86,25 @@ ARCHETYPES = [
 
 
 def build_topology():
-    zones = [{"id": z[0], "name": z[1], "description": z[2]} for z in ZONES]
+    zone_ids = unique_ids(rng, len(ZONES))
+    zones = [
+        {"id": zone_ids[i], "name": z[0], "description": z[1]}
+        for i, z in enumerate(ZONES)
+    ]
+
+    trafo_ids = unique_ids(rng, N_TRANSFORMERS)
     transformers = []
     for i in range(N_TRANSFORMERS):
         zone = zones[i % len(zones)]
         transformers.append({
-            "id": "t%03d" % (i + 1),
+            "id": trafo_ids[i],
             "zoneId": zone["id"],
             "name": "TR %s %d" % (zone["name"], i + 1),
             "capacityKva": rng.choice([160, 250, 315, 400, 500, 630]),
             "energySuppliedKwh": 0.0,  # se completa al final
         })
+
+    meter_ids = unique_ids(rng, N_METERS)
     meters = []
     for i in range(N_METERS):
         t = transformers[i % N_TRANSFORMERS]
@@ -84,7 +117,7 @@ def build_topology():
             ctype = "industrial"
         p = TYPE_PARAMS[ctype]
         meters.append({
-            "id": "m%03d" % (i + 1),
+            "id": meter_ids[i],
             "transformerId": t["id"],
             "customerType": ctype,
             "tariff": p["tariff"],
@@ -96,7 +129,6 @@ def build_topology():
 
 # ------------------------------------------------------------------ clima
 def gen_weather():
-    # olas de calor en verano (ene-feb y dic)
     heat_waves = []
     for _ in range(4):
         if rng.random() < 0.5:
@@ -166,7 +198,7 @@ def thermal_response(temp, sensitivity, threshold=25.0):
     return 1.0 + sensitivity * (temp - threshold) ** 2
 
 
-def gen_true_series(meter, base, sensitivity, tempC):
+def gen_true_series(meter, base, sensitivity, tempC, profile_scale):
     prof = daily_profile(meter["customerType"])
     series = []
     prev = 0.0
@@ -174,7 +206,7 @@ def gen_true_series(meter, base, sensitivity, tempC):
         ts = START + timedelta(hours=h)
         doy = ts.timetuple().tm_yday - 1
         hour = ts.hour
-        v = base * prof[hour] * seasonal_factor(doy) * thermal_response(tempC[h], sensitivity)
+        v = base * prof[hour] * profile_scale * seasonal_factor(doy) * thermal_response(tempC[h], sensitivity)
         noise = 0.7 * prev + rng.gauss(0, 0.06)
         prev = noise
         v *= (1 + noise)
@@ -227,8 +259,8 @@ def main():
     zones, transformers, meters = build_topology()
     tempC, humidity = gen_weather()
 
-    # elegir 7 medidores de fraude distintos
     fraud_idx = sorted(rng.sample(range(N_METERS), len(ARCHETYPES)))
+    label_ids = unique_ids(rng, N_METERS)
 
     readings = []
     labels = []
@@ -238,8 +270,9 @@ def main():
     for i, meter in enumerate(meters):
         p = TYPE_PARAMS[meter["customerType"]]
         base = rng.uniform(*p["base"])
-        sensitivity = p["thermal"]
-        true = gen_true_series(meter, base, sensitivity, tempC)
+        sensitivity = p["thermal"] * rng.uniform(0.6, 1.4)   # jitter por medidor
+        profile_scale = rng.uniform(0.9, 1.1)                # jitter por medidor
+        true = gen_true_series(meter, base, sensitivity, tempC, profile_scale)
 
         archetype = None
         if i in fraud_idx:
@@ -260,14 +293,13 @@ def main():
         recorded_sum_by_meter[meter["id"]] = sum(rounded)
 
         labels.append({
-            "id": "l%03d" % (i + 1),
+            "id": label_ids[i],
             "meterId": meter["id"],
             "isFraud": archetype is not None,
             "archetype": archetype,
             "note": "Pérdida no técnica simulada: %s" % archetype if archetype else None,
         })
 
-    # energía suministrada por transformador = suma real + pérdidas técnicas
     for t in transformers:
         tech = rng.uniform(0.04, 0.07)
         total_true = 0.0
@@ -284,8 +316,8 @@ def main():
             "seed": SEED,
             "intervalH": INTERVAL_H,
             "period": {"start": fmt(START), "hours": HOURS},
-            "note": "Datos emulados con fines educativos (F1). "
-                    "100 medidores x 8760 horas. Etiquetas = pérdida no técnica (fraude o falla).",
+            "note": "Datos emulados con fines educativos (F2). IDs alfanuméricos "
+                    "aleatorios (sin prefijo secuencial). 100 medidores x 8760 h.",
             "fraudCount": len(fraud_idx),
             "fraudMeters": fraud_meters,
             "fraudArchetypes": ARCHETYPES,
@@ -309,12 +341,12 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(dataset, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
-    size_mb = sum(1 for _ in open(OUT, "rb")) / 1e6
+    size_mb = os.path.getsize(OUT) / 1e6
     print("OK  %s" % OUT)
     print("    medidores: %d | transformadores: %d | zonas: %d" % (N_METERS, N_TRANSFORMERS, len(zones)))
     print("    lecturas: %d series x %d h" % (len(readings), HOURS))
     print("    fraude: %d medidores -> %s" % (len(fraud_idx), fraud_meters))
-    print("    tamaño: %.2f MB" % size_mb)
+    print("    tamaño: %.2f MB (bytes)" % size_mb)
 
 
 if __name__ == "__main__":

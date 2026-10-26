@@ -279,3 +279,70 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .brand-sub { display: none; }
   .app-footer { flex-direction: column; }
 }
+
+/* ---------- CRUD ---------- */
+
+.entity-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+
+.entity-tab {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.entity-tab:hover { color: var(--text); border-color: var(--accent); }
+.entity-tab.is-active { background: var(--accent); border-color: var(--accent); color: #111; font-weight: 650; }
+
+.crud-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.crud-search {
+  flex: 1;
+  min-width: 220px;
+  max-width: 380px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+}
+.crud-search:focus { outline: none; border-color: var(--accent); }
+
+.crud-form { display: flex; flex-direction: column; gap: 12px; max-width: 580px; }
+.crud-form h3 { font-size: 16px; }
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-label { color: var(--text-muted); font-size: 12.5px; }
+
+.crud-form input[type="text"],
+.crud-form input[type="number"],
+.crud-form select {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+}
+.crud-form input:focus,
+.crud-form select:focus { outline: none; border-color: var(--accent); }
+.crud-form input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+
+.form-errors {
+  background: rgba(248, 81, 73, 0.08);
+  border: 1px solid rgba(248, 81, 73, 0.4);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.form-errors ul { margin: 0; padding-left: 18px; }
+
+.row-actions { display: flex; gap: 6px; flex-wrap: nowrap; }
+.btn-sm { padding: 4px 10px; font-size: 12px; }

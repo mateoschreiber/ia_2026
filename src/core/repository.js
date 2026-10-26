@@ -3,6 +3,18 @@
   'use strict';
   var App = (global.App = global.App || {});
 
+  // Alfabeto sin caracteres ambiguos (0/O, 1/I/L), igual que el generador.
+  var ID_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+  function randomId(length) {
+    var out = '';
+    var n = length || 8;
+    for (var i = 0; i < n; i++) {
+      out += ID_ALPHABET.charAt(Math.floor(Math.random() * ID_ALPHABET.length));
+    }
+    return out;
+  }
+
   function Repository(store, bus) {
     this.store = store;
     this.bus = bus || App.bus;
@@ -23,15 +35,14 @@
     return this._ensure(entity).filter(function (x) { return x.id === id; })[0] || null;
   };
 
+  // IDs aleatorios (sin prefijo secuencial), como los CONS_NO de datasets reales.
   Repository.prototype.nextId = function (entity) {
-    var def = App.SCHEMA.entities[entity];
-    var prefix = (def && def.idPrefix) || 'x';
     var items = this._ensure(entity);
     var ids = {};
     items.forEach(function (x) { if (x.id) ids[x.id] = true; });
-    var n = items.length + 1;
-    var id = prefix + ('000' + n).slice(-3);
-    while (ids[id]) { n += 1; id = prefix + ('000' + n).slice(-3); }
+    var id = randomId(8);
+    var guard = 0;
+    while (ids[id] && guard < 100) { id = randomId(8); guard += 1; }
     return id;
   };
 

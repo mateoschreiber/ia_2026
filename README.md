@@ -101,7 +101,7 @@ que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
 |---|---|---|
 | F0 | Esqueleto, carga/guardado del JSON, navegación, estilos | **Hecho** |
 | F1 | Generador de datos emulados (100 medidores, 1 año) | **Hecho** |
-| F2 | CRUD completo por entidad | Pendiente |
+| F2 | CRUD completo por entidad | **Hecho** |
 | F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | Pendiente |
 | F4 | Dashboard completo | Pendiente |
 | F5 | Métricas del modelo y pulido | Pendiente |
@@ -121,6 +121,8 @@ Produce `data/database.json` con:
 - 5 zonas, 20 transformadores, 100 medidores (75 % residencial, 20 % comercial, 5 % industrial).
 - 8760 horas de lecturas por medidor + clima horario (temperatura, humedad).
 - Consumo = base × perfil horario × factor estacional × **respuesta térmica** (no lineal, para picos de calor) × ruido AR(1).
+- **IDs aleatorios alfanuméricos** (sin prefijo secuencial), como los `CONS_NO`
+  de los datasets reales (SGCC), para no filtrar estructura artificial en el análisis.
 - 7 medidores con pérdida no técnica (`isFraud: true`), un arquetipo cada uno:
   `bypass_total`, `bypass_parcial`, `inversion_fase`, `manipulacion_nocturna`,
   `conexion_directa`, `fraude_intermitente`, `medidor_defectuoso`.
