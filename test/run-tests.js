@@ -25,6 +25,7 @@ load('src/analysis/isolationForest.js');
 load('src/analysis/autoencoder.js');
 load('src/analysis/forecast.js');
 load('src/analysis/engine.js');
+load('src/analysis/metrics.js');
 
 const App = global.App;
 const dataset = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/database.json'), 'utf8'));
@@ -62,6 +63,11 @@ for (const k of [5, 10, 20]) {
 }
 const recall30 = det.slice(0, 30).filter(function (d) { return labels[d.meterId]; }).length / fraudTotal;
 console.log('recall@30: ' + recall30.toFixed(2));
+console.log('');
+
+const metrics = App.Analysis.metrics.evaluate(dataset);
+console.log('matriz de confusión (flag):', JSON.stringify(metrics.confusion));
+console.log('precision:', metrics.precision.toFixed(3), '| recall:', metrics.recall.toFixed(3), '| f1:', metrics.f1.toFixed(3));
 console.log('');
 
 if (!check.valid) {

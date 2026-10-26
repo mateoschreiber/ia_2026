@@ -113,7 +113,7 @@ que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
 | F2 | CRUD completo por entidad | **Hecho** |
 | F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | **Hecho** |
 | F4 | Dashboard completo | **Hecho** |
-| F5 | Métricas del modelo y pulido | Pendiente |
+| F5 | Métricas del modelo y pulido | **Hecho** |
 | F6 | Documentación y guía de defensa | Pendiente |
 
 ---
@@ -166,3 +166,21 @@ probabilidad de pérdida no técnica.
 > detectan con score alto; los de escalado uniforme o intermitentes son
 > intrínsecamente más difíciles, como ocurre en la literatura. La vista de
 > métricas (F5) reportará `precision@k` y recall contra las etiquetas.
+
+---
+
+## Métricas del modelo (F5)
+
+`src/analysis/metrics.js` evalúa las detecciones contra las etiquetas
+(`labels`, el *ground truth* oculto en el dashboard) y `metrics.js` (vista)
+muestra:
+
+- **Matriz de confusión** (TP/FP/FN/TN) a partir del flag, con precision,
+  recall, F1 y accuracy.
+- **precision@k y recall@k** para k = 5, 10, 20, 30, 50.
+- **Curva de inspección**: fraudes encontrados vs medidores revisados,
+  comparada con el desempeño aleatorio esperado.
+- **Desempeño por arquetipo** de fraude (rank, score, en top 10, flag).
+
+Esto permite reportar de forma honesta el rendimiento del detector sobre los
+datos sintéticos y discutir qué tipos de fraude son más/menos detectables.
