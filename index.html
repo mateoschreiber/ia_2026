@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisión Energética — Proyecto Final IA</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">⚡</span>
+      <div class="brand-text">
+        <h1>Supervisión Energética</h1>
+        <p class="brand-sub">Proyecto Final — Inteligencia Artificial · Datos emulados</p>
+      </div>
+    </div>
+    <nav class="app-nav" id="app-nav" aria-label="Navegación principal"></nav>
+    <div class="app-status is-empty" id="app-status">Sin base de datos</div>
+  </header>
+
+  <main id="app-view" class="app-view" aria-live="polite"></main>
+
+  <footer class="app-footer">
+    <span>ANDE emulado · 100 medidores · 1 año horario</span>
+    <span id="app-version">v0.2.0 — F1</span>
+  </footer>
+
+  <div id="toast-host" class="toast-host" aria-live="polite"></div>
+
+  <!-- Librería de gráficos (vendoreada para funcionar sin internet) -->
+  <script src="assets/vendor/chart.umd.js"></script>
+
+  <!-- Núcleo -->
+  <script src="src/core/events.js"></script>
+  <script src="src/core/schema.js"></script>
+  <script src="src/core/validator.js"></script>
+  <script src="src/core/store.js"></script>
+  <script src="src/core/fileStore.js"></script>
+  <script src="src/core/repository.js"></script>
+
+  <!-- Motor de análisis (stubs en F0, se completan en F3) -->
+  <script src="src/analysis/balance.js"></script>
+  <script src="src/analysis/anomaly.js"></script>
+  <script src="src/analysis/isolationForest.js"></script>
+  <script src="src/analysis/forecast.js"></script>
+  <script src="src/analysis/autoencoder.js"></script>
+
+  <!-- Interfaz -->
+  <script src="src/ui/dom.js"></script>
+  <script src="src/ui/i18n.js"></script>
+  <script src="src/ui/router.js"></script>
+  <script src="src/ui/components/kpi.js"></script>
+  <script src="src/ui/components/chart.js"></script>
+  <script src="src/ui/components/table.js"></script>
+  <script src="src/ui/views/home.js"></script>
+  <script src="src/ui/views/dashboard.js"></script>
+  <script src="src/ui/views/crud.js"></script>
+  <script src="src/ui/views/metrics.js"></script>
+
+  <!-- Arranque -->
+  <script src="src/main.js"></script>
+</body>
+</html>

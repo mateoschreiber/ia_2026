@@ -1,0 +1,11 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs y temporales
+*.log
+
+# Python (solo el generador de desarrollo)
+__pycache__/
+*.pyc
