@@ -9,6 +9,8 @@ sobre datos **emulados** con fines educativos (contexto ANDE).
 - Dashboard + pantalla CRUD para editar los datos.
 - Chart.js vendoreado para funcionar sin internet.
 - Requisitos y entorno de desarrollo: ver [REQUIREMENTS.md](REQUIREMENTS.md).
+- Documentación técnica detallada: ver [docs/DOCUMENTACION.md](docs/DOCUMENTACION.md).
+- Guía de defensa (guion, demo, preguntas): ver [docs/DEFENSA.md](docs/DEFENSA.md).
 
 ---
 
@@ -46,6 +48,9 @@ Proyecto final IA/
 ├─ index.html
 ├─ README.md
 ├─ REQUIREMENTS.md          # requisitos (runtime, Python, Node, gh)
+├─ docs/
+│  ├─ DOCUMENTACION.md      # documentación técnica detallada
+│  └─ DEFENSA.md            # guion, demo y preguntas frecuentes
 ├─ data/
 │  └─ database.json          # base de datos canónica (una sola)
 ├─ generator/
@@ -71,7 +76,8 @@ Proyecto final IA/
    │  ├─ isolationForest.js  # Isolation Forest
    │  ├─ autoencoder.js      # autoencoder (in-browser)
    │  ├─ forecast.js         # pronóstico de picos por zona
-   │  └─ engine.js           # orquestador (detections/forecast/alerts)
+   │  ├─ engine.js           # orquestador (detections/forecast/alerts)
+   │  └─ metrics.js          # evaluación (precision@k, confusión, curva)
    ├─ ui/
    │  ├─ dom.js, i18n.js, router.js
    │  ├─ components/         # kpi, chart, table, form
@@ -114,7 +120,7 @@ que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
 | F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | **Hecho** |
 | F4 | Dashboard completo | **Hecho** |
 | F5 | Métricas del modelo y pulido | **Hecho** |
-| F6 | Documentación y guía de defensa | Pendiente |
+| F6 | Documentación y guía de defensa | **Hecho** |
 
 ---
 
