@@ -346,3 +346,22 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
 .row-actions { display: flex; gap: 6px; flex-wrap: nowrap; }
 .btn-sm { padding: 4px 10px; font-size: 12px; }
+
+/* ---------- Dashboard (F4) ---------- */
+
+.filters-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+.select {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13.5px;
+}
+.select:focus { outline: none; border-color: var(--accent); }
+
+.risk-cell { display: flex; align-items: center; gap: 8px; min-width: 140px; }
+.risk-bar { flex: 1; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+.risk-bar-fill { height: 100%; background: linear-gradient(90deg, var(--warn), var(--danger)); border-radius: 3px; }

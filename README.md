@@ -8,6 +8,7 @@ sobre datos **emulados** con fines educativos (contexto ANDE).
 - Una única base de datos: `data/database.json`.
 - Dashboard + pantalla CRUD para editar los datos.
 - Chart.js vendoreado para funcionar sin internet.
+- Requisitos y entorno de desarrollo: ver [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ---
 
@@ -44,8 +45,13 @@ sobre datos **emulados** con fines educativos (contexto ANDE).
 Proyecto final IA/
 ├─ index.html
 ├─ README.md
+├─ REQUIREMENTS.md          # requisitos (runtime, Python, Node, gh)
 ├─ data/
 │  └─ database.json          # base de datos canónica (una sola)
+├─ generator/
+│  └─ generate.py            # generador de datos emulados (Python)
+├─ test/
+│  └─ run-tests.js           # pruebas del motor (Node.js)
 ├─ assets/
 │  ├─ css/main.css
 │  └─ vendor/chart.umd.js    # Chart.js 4.4.1
@@ -54,18 +60,21 @@ Proyecto final IA/
    │  ├─ events.js           # bus de eventos
    │  ├─ schema.js           # definición de entidades y campos
    │  ├─ validator.js        # validación de dataset y entidades
-   │  ├─ store.js            # estado + caché localStorage
+   │  ├─ store.js            # estado + caché IndexedDB
    │  ├─ fileStore.js        # abrir/guardar el .json
    │  └─ repository.js       # CRUD genérico
    ├─ analysis/
-   │  ├─ balance.js          # balance energético (completo)
-   │  ├─ anomaly.js          # z-score / estadística (completo)
-   │  ├─ isolationForest.js  # Isolation Forest (F3)
-   │  ├─ forecast.js         # pronóstico de picos (F3)
-   │  └─ autoencoder.js      # inferencia autoencoder (F3)
+   │  ├─ rng.js              # PRNG determinista (mulberry32)
+   │  ├─ features.js         # extracción de features por medidor
+   │  ├─ balance.js          # balance energético
+   │  ├─ anomaly.js          # estadística (z-score, IQR)
+   │  ├─ isolationForest.js  # Isolation Forest
+   │  ├─ autoencoder.js      # autoencoder (in-browser)
+   │  ├─ forecast.js         # pronóstico de picos por zona
+   │  └─ engine.js           # orquestador (detections/forecast/alerts)
    ├─ ui/
    │  ├─ dom.js, i18n.js, router.js
-   │  ├─ components/         # kpi, chart, table
+   │  ├─ components/         # kpi, chart, table, form
    │  └─ views/              # home, dashboard, crud, metrics
    └─ main.js
 ```
@@ -103,7 +112,7 @@ que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
 | F1 | Generador de datos emulados (100 medidores, 1 año) | **Hecho** |
 | F2 | CRUD completo por entidad | **Hecho** |
 | F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | **Hecho** |
-| F4 | Dashboard completo | Pendiente |
+| F4 | Dashboard completo | **Hecho** |
 | F5 | Métricas del modelo y pulido | Pendiente |
 | F6 | Documentación y guía de defensa | Pendiente |
 
