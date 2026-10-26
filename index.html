@@ -23,7 +23,7 @@
 
   <footer class="app-footer">
     <span>ANDE emulado · 100 medidores · 1 año horario</span>
-    <span id="app-version">v0.3.0 — F2</span>
+    <span id="app-version">v0.4.0 — F3</span>
   </footer>
 
   <div id="toast-host" class="toast-host" aria-live="polite"></div>
@@ -39,12 +39,15 @@
   <script src="src/core/fileStore.js"></script>
   <script src="src/core/repository.js"></script>
 
-  <!-- Motor de análisis (stubs en F0, se completan en F3) -->
+  <!-- Motor de análisis (F3) -->
+  <script src="src/analysis/rng.js"></script>
+  <script src="src/analysis/features.js"></script>
   <script src="src/analysis/balance.js"></script>
   <script src="src/analysis/anomaly.js"></script>
   <script src="src/analysis/isolationForest.js"></script>
-  <script src="src/analysis/forecast.js"></script>
   <script src="src/analysis/autoencoder.js"></script>
+  <script src="src/analysis/forecast.js"></script>
+  <script src="src/analysis/engine.js"></script>
 
   <!-- Interfaz -->
   <script src="src/ui/dom.js"></script>

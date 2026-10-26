@@ -100,7 +100,7 @@ def build_topology():
             "id": trafo_ids[i],
             "zoneId": zone["id"],
             "name": "TR %s %d" % (zone["name"], i + 1),
-            "capacityKva": rng.choice([160, 250, 315, 400, 500, 630]),
+            "capacityKva": 0.0,  # se asigna según el pico de su carga (al final)
             "energySuppliedKwh": 0.0,  # se completa al final
         })
 
@@ -254,6 +254,38 @@ def apply_fraud(archetype, true):
     return [max(0.0, v) for v in recorded]
 
 
+# ------------------------------------------------------------- capacidad
+def assign_capacities(transformers, meters, readings):
+    """Dimensiona cada transformador según su pico de carga registrado.
+    La mayoría quedan holgados; unos pocos quedan subdimensionados para
+    que la detección de sobrecarga sea realista (kVA ≈ kW, fp ≈ 1)."""
+    meter_trafo = {m["id"]: m["transformerId"] for m in meters}
+    agg = {t["id"]: [0.0] * HOURS for t in transformers}
+    for r in readings:
+        tid = meter_trafo.get(r["meterId"])
+        if tid is None:
+            continue
+        a = agg[tid]
+        kwh = r["kwh"]
+        for h in range(HOURS):
+            a[h] += kwh[h]
+
+    idxs = list(range(N_TRANSFORMERS))
+    overloaded = set(rng.sample(idxs, 3))
+    near = set(rng.sample([i for i in idxs if i not in overloaded], 2))
+    for idx, t in enumerate(transformers):
+        pk = max(agg[t["id"]]) if agg[t["id"]] else 0.0
+        if pk <= 0:
+            pk = 1.0
+        if idx in overloaded:
+            cap = pk * rng.uniform(0.60, 0.85)   # sobrecargado (ratio > 1)
+        elif idx in near:
+            cap = pk * rng.uniform(0.95, 1.05)   # cerca del límite
+        else:
+            cap = pk * rng.uniform(1.40, 1.90)   # holgado
+        t["capacityKva"] = round(cap, 1)
+
+
 # ------------------------------------------------------------------ main
 def main():
     zones, transformers, meters = build_topology()
@@ -307,6 +339,8 @@ def main():
             if m["transformerId"] == t["id"]:
                 total_true += true_sum_by_meter[m["id"]]
         t["energySuppliedKwh"] = round(total_true * (1 + tech), 2)
+
+    assign_capacities(transformers, meters, readings)
 
     fraud_meters = [meters[i]["id"] for i in fraud_idx]
     dataset = {

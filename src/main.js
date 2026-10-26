@@ -72,9 +72,30 @@
     }, 4200);
   }
 
+  function debounce(fn, wait) {
+    var timer = null;
+    return function () {
+      clearTimeout(timer);
+      timer = setTimeout(fn, wait);
+    };
+  }
+
+  function recompute() {
+    if (!store.isLoaded()) return;
+    try {
+      App.Analysis.engine.apply(store.dataset);
+      store.touch(); // persiste y notifica DATASET_CHANGED
+    } catch (err) {
+      console.error('[engine] recompute falló:', err);
+      toast({ kind: 'error', message: 'El análisis no pudo completarse.' });
+    }
+  }
+  var debouncedRecompute = debounce(recompute, 400);
+
   bus.on(App.EVENTS.ROUTE_CHANGED, function (e) { updateNavActive(e.path); });
-  bus.on(App.EVENTS.DATASET_LOADED, function () { updateStatus(); if (router.current) router.refresh(); });
+  bus.on(App.EVENTS.DATASET_LOADED, function () { updateStatus(); recompute(); if (router.current) router.refresh(); });
   bus.on(App.EVENTS.DATASET_CHANGED, function () { updateStatus(); });
+  bus.on(App.EVENTS.ENTITY_CHANGED, function () { debouncedRecompute(); });
   bus.on(App.EVENTS.NOTICE, toast);
 
   // El arranque es asíncrono: primero se intenta restaurar la caché (IndexedDB).

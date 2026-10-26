@@ -102,7 +102,7 @@ que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
 | F0 | Esqueleto, carga/guardado del JSON, navegación, estilos | **Hecho** |
 | F1 | Generador de datos emulados (100 medidores, 1 año) | **Hecho** |
 | F2 | CRUD completo por entidad | **Hecho** |
-| F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | Pendiente |
+| F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | **Hecho** |
 | F4 | Dashboard completo | Pendiente |
 | F5 | Métricas del modelo y pulido | Pendiente |
 | F6 | Documentación y guía de defensa | Pendiente |
@@ -130,3 +130,30 @@ Produce `data/database.json` con:
   de modo que el balance energético (suministrado − facturado) revele la pérdida no técnica.
 
 Las **etiquetas** (`labels`) son el *ground truth* para evaluar los modelos (F3/F5).
+
+---
+
+## Motor de análisis (F3)
+
+`src/analysis/` implementa la detección de anomalías y el pronóstico, todo en
+JavaScript puro (sin servidor). Al cargar la base de datos y al editarla por
+CRUD, el motor se **recalcula automáticamente** y escribe los resultados en
+`dataset.detections`, `dataset.forecast` y `dataset.alerts`.
+
+| Módulo | Método | Resultado |
+|---|---|---|
+| `features.js` | 11 features por medidor (total, media, desvío, cv, zeroRatio, ratios día/noche/tarde, pico, comparación con vecindario y con el tipo de cliente) | matriz de features estandarizada |
+| `isolationForest.js` | Isolation Forest (Liu 2008), 100 árboles | score de anomalía por medidor |
+| `autoencoder.js` | Autoencoder de 1 capa oculta entrenado in-browser (gradiente descendente, determinista) | error de reconstrucción como score |
+| `forecast.js` | Modelo aditivo de pico vs temperatura + percentil 95 (OLS) | pico pronosticado por zona |
+| `engine.js` | Combina scores (IF + autoencoder + estadístico), umbral por percentil 90 | detections, forecast, alerts |
+
+**Alertas generadas:** sobrecarga de transformadores (carga pico vs capacidad),
+pérdidas por balance energético (suministrado − facturado) y medidores con alta
+probabilidad de pérdida no técnica.
+
+> **Interpretación honesta (para F5):** con datos emulados, los arquetipos
+> "evidentes" (bypass total, inversión de fase, manipulación nocturna) se
+> detectan con score alto; los de escalado uniforme o intermitentes son
+> intrínsecamente más difíciles, como ocurre en la literatura. La vista de
+> métricas (F5) reportará `precision@k` y recall contra las etiquetas.
