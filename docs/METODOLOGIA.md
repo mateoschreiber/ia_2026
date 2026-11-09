@@ -1,5 +1,7 @@
 # Metodología y datos
 
+La aplicación incluye un laboratorio efímero y explicaciones interactivas. Sus cálculos y dependencias se describen en [GUIA_ALGORITMOS.md](GUIA_ALGORITMOS.md); no alteran el procedimiento experimental.
+
 ## Procedencia y unidades
 
 El generador `generator/generate.py` construye una red ficticia de 5 zonas, 20 transformadores y 100 medidores con 8.760 lecturas horarias de 2025. Tiene siete arquetipos de pérdida no técnica o falla simulados y semilla 42. Los perfiles, el clima y las pérdidas son supuestos del generador, no registros ni estimaciones oficiales de ANDE. `data/database.json` es la muestra de referencia. La fecha y los identificadores son sintéticos.

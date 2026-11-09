@@ -11,6 +11,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 
 SEED = 42
+ARTIFACT_VERSION = 2
+FEATURE_NAMES = ['Media', 'Desviación estándar', 'Percentil 95', 'Proporción de ceros',
+                 'Media nocturna', 'Media vespertina', 'Coeficiente de variación']
 
 def features(values):
     a = np.asarray(values, dtype=float)
@@ -68,12 +71,14 @@ def train(data):
                   'distance':make_pipeline(StandardScaler())}
     selected = None
     anomaly_validation = {}
+    anomaly_thresholds = {}
     for name, model in candidates.items():
         model.fit(X[trainidx])
         def score(x):
             if name == 'distance': return np.linalg.norm(model.transform(x), axis=1)
             return -model.score_samples(x)
         train_score = score(X[trainidx]); threshold = float(np.quantile(train_score, .9))
+        anomaly_thresholds[name] = threshold
         val = _classification(y[validx], score(X[validx]), threshold)
         anomaly_validation[name] = val
         if selected is None or val['f1'] > selected[0]: selected = (val['f1'], name, model, threshold, val)
@@ -101,7 +106,9 @@ def train(data):
              'forecast':{'selected':fn,'validation_mae_kw':val_mae,'test':fm(pred),'baseline_previous_day':fm(baseline),
              'inference_ms_batch':forecast_ms,'test_predictions':[{'zoneId':r[1],'date':r[2],'actual_kw':float(r[4]),'predicted_kw':float(p),'baseline_kw':float(r[3][1])} for r,p in zip(te,pred)]},
              'limitations':['Datos sintéticos; no demuestra desempeño en campo.', 'Temperatura futura observada usada como escenario idealizado.', 'Pocos casos positivos; métricas inestables.', 'Entrenamiento y prueba de pronóstico comparten zonas.']}
-    return {'anomaly_model':anomaly,'anomaly_name':name,'threshold':threshold,'forecast_model':forecast,'report':report}
+    return {'version':ARTIFACT_VERSION, 'anomaly_model':anomaly,'anomaly_name':name,'threshold':threshold,
+            'anomaly_candidates':candidates, 'anomaly_thresholds':anomaly_thresholds,
+            'forecast_model':forecast, 'forecast_candidates':models, 'forecast_name':fn, 'report':report}
 
 def analyze(data, bundle, temperature, power_factor=.9):
     rows=meter_rows(data, include_labels=False); X=np.array([r[1] for r in rows]); model=bundle['anomaly_model']

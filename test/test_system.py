@@ -46,6 +46,9 @@ def test_invalid_dataset_and_origin(client):
     data=client.get('/api/data').json()
     data['meters'][0]['transformerId']='inexistente'
     assert client.put('/api/data',json=data).status_code==422
+    data=client.get('/api/data').json()
+    data['meters'][0]['capacityContractedKw']=-1
+    assert client.put('/api/data',json=data).status_code==422
     assert client.post('/api/reset',headers={'Origin':'https://example.org'}).status_code==403
 
 def test_inference_has_no_label_dependency(client):
@@ -65,3 +68,49 @@ def test_persistence_on_restart(client):
         assert restarted.get('/api/data').json()['zones'][0]['name']=='Persistencia'
         assert restarted.get('/api/results').json()['status']=='sin análisis'
     assert client.post('/api/reset').status_code==200
+
+def test_explanations_and_ephemeral_scenario(client):
+    data=client.get('/api/data').json()
+    zone=data['zones'][0]['id']
+    trafo=next(t['id'] for t in data['transformers'] if t['zoneId']==zone)
+    meter=next(m['id'] for m in data['meters'] if m['transformerId']==trafo)
+    insight=client.get('/api/insight',params={'meter_id':meter,'zone_id':zone,'temperature':35}).json()
+    distance=insight['meter']['distance']
+    assert sum(v['squared'] for v in distance['variables']) == pytest.approx(distance['score'] ** 2)
+    forest=insight['forecast']
+    assert np.mean(forest['tree_predictions']) == pytest.approx(forest['forest_mean'])
+    assert forest['forest_mean'] == pytest.approx(forest['selected_prediction'])
+    path=insight['meter']['isolation_forest']['path']
+    assert path and path[-1]['leaf']
+    request={'meter_id':meter,'zone_id':zone,'temperature':39,'base_temperature':35,
+             'operation':'uniform','amount':50,'dataset_revision':insight['dataset_revision']}
+    response=client.post('/api/simulate',json=request)
+    assert response.status_code==200, response.text
+    result=response.json()
+    before=result['original']['series']['profile']; after=result['simulated']['series']['profile']
+    assert after[-1]['kwh'] == pytest.approx(before[-1]['kwh']*.5)
+    assert result['original']['detection']['score'] != result['simulated']['detection']['score']
+    assert result['difference']['score'] == pytest.approx(result['simulated']['detection']['score']-result['original']['detection']['score'])
+    assert client.get('/api/data').json()==data
+    request['dataset_revision']='0'*64
+    assert client.post('/api/simulate',json=request).status_code==409
+    assert client.get('/api/insight',params={'meter_id':meter,'zone_id':zone,'tree':999}).status_code==422
+
+def test_migration_backs_up_legacy_model(client, tmp_path, monkeypatch):
+    import joblib
+    import backend.api as service
+    original=service.state['bundle']
+    legacy={k:v for k,v in original.items() if k not in ('version','anomaly_candidates','anomaly_thresholds','forecast_candidates','forecast_name')}
+    joblib.dump(legacy,tmp_path/'model.joblib')
+    dataset=client.get('/api/data').json()
+    dataset['zones'][0]['name']='Dato conservado'
+    (tmp_path/'database.json').write_text(json.dumps(dataset),encoding='utf-8')
+    monkeypatch.setattr(service,'RUNTIME',tmp_path)
+    try:
+        with TestClient(service.app) as migrated:
+            assert migrated.get('/api/data').json()['zones'][0]['name']=='Dato conservado'
+            assert migrated.get('/api/metrics').json()['anomaly']['test']==legacy['report']['anomaly']['test']
+            assert (tmp_path/'model.v1.backup.joblib').exists()
+            assert joblib.load(tmp_path/'model.joblib')['version']==2
+    finally:
+        service.state['bundle']=original

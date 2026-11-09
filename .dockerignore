@@ -1,5 +1,7 @@
 .git
 .venv
+web/node_modules
+web/dist
 runtime
 .pytest_cache
 __pycache__

@@ -5,7 +5,7 @@
 1. **0:00–1:00 · Problema.** Explicar que se estudia la priorización de inspecciones y picos de demanda en un contexto paraguayo, sin afirmar acceso a la red de ANDE.
 2. **1:00–2:30 · Datos.** Mostrar 100 medidores sintéticos, 5 zonas, 20 transformadores y un año horario; explicar la generación y que solo hay siete etiquetas positivas.
 3. **2:30–4:00 · Metodología.** Explicar particiones por medidor y por fecha, estandarización solo con entrenamiento, modelos candidatos, selección en validación y prueba reservada.
-4. **4:00–7:00 · Demostración.** Con Docker preparado, abrir el dashboard, introducir 35 °C y factor 0,90, ejecutar análisis, mostrar picos, puntuaciones y alertas separadas. Editar el nombre de una zona, guardar y demostrar que se invalidan los resultados. Volver a ejecutar. Mostrar `/docs` y la sección de métricas.
+4. **4:00–7:00 · Demostración.** Activar Modo exposición y avanzar de problema a datos y variables. En Anomalías seleccionar un medidor y explicar las contribuciones y un árbol real. Abrir Laboratorio, aplicar una reducción temporal y comparar score y posición. En Demanda variar la temperatura y mostrar el promedio de árboles; indicar que el escenario no cambia la base.
 5. **7:00–8:30 · Resultados.** Leer los resultados del experimento desde la interfaz y `docs/resultados_experimento.json`; comparar MAE/RMSE con la referencia de persistencia. Identificar la temperatura futura como escenario idealizado.
 6. **8:30–10:00 · Discusión.** Explicar la única etiqueta positiva en prueba, los datos simulados, las zonas compartidas y que el score no es probabilidad ni prueba de fraude. Proponer nuevos datos y evaluación externa.
 

@@ -16,9 +16,9 @@ El servicio escucha únicamente en la computadora local. Es una demostración si
 
 ## Uso
 
-1. Elegir una temperatura máxima hipotética para el día siguiente y un factor de potencia (por defecto 0,90).
-2. Ejecutar el análisis. Consultar picos por zona, orden de inspección y alertas de anomalía, balance y carga. El score es una puntuación, no una probabilidad.
-3. En Gestión se puede importar/exportar el JSON original o modificar registros en formato JSON. El servidor valida el conjunto completo. Cualquier cambio invalida el análisis previo y obliga a ejecutarlo otra vez. Los modelos siguen siendo los entrenados con los datos de ejemplo; la edición no los reentrena.
+1. Seleccionar zona, transformador y medidor. El análisis de referencia se calcula al cargar.
+2. Explorar Supervisión, Anomalías, Demanda y Evaluación; abrir Laboratorio para comparar temperatura y cambios temporales de consumo. Los escenarios no se guardan.
+3. En Gestión se puede importar/exportar el JSON original o modificar registros. El servidor valida el conjunto completo y cualquier cambio invalida el análisis previo. Los modelos siguen siendo los entrenados con los datos de ejemplo.
 4. `/docs` muestra la documentación interactiva de la API y necesita conexión para cargar Swagger UI desde su CDN; el dashboard y la API funcionan localmente. El esquema de la API también está disponible sin conexión en `/openapi.json`. `GET /api/metrics` entrega el experimento de referencia, no una evaluación del archivo importado.
 
 Las series importadas deben estar sincronizadas: un registro por medidor, igual fecha de inicio, intervalo de una hora y entre 14 y 366 días completos. Temperaturas en °C; energía en kWh por intervalo de una hora, equivalente numéricamente a potencia media en kW durante ese intervalo. El balance requiere energía suministrada positiva. Las alertas de carga comparan kW con `kVA × factor de potencia` supuesto, no una medición de potencia aparente.
@@ -49,9 +49,13 @@ Con semilla 42, el resultado incluido seleccionó distancia para anomalías y bo
 ## Organización
 
 - `backend/`: extracción de variables, experimentos, modelos y API FastAPI.
-- `web/`: interfaz local nueva.
+- `web/`: interfaz React y TypeScript, construida con Vite y gráficos Apache ECharts. Docker sirve el resultado y sus recursos locales.
 - `data/database.json` y `generator/generate.py`: datos emulados y generador original.
 - `docs/`: metodología, resultados, informe y defensa.
 - `src/`, `index.html`, `assets/` y `test/run-tests.js`: prototipo histórico estático; no son la interfaz ni el motor del servicio actual. Su documentación anterior describe esa versión y sus métricas no son comparables directamente con el experimento nuevo.
 
 El informe y la defensa requieren revisión de los integrantes; completar datos de autoría e institución antes de entregar.
+
+La [guía de algoritmos y componentes](docs/GUIA_ALGORITMOS.md) explica fórmulas, gráficos, bibliotecas y límites. Los colores azul #003B71 y rojo #D71920 son aproximaciones digitales inspiradas en ANDE.
+
+Para desarrollar la interfaz ejecutar `npm ci` y `npm run build` en `web/`. Docker compila la interfaz automáticamente. El artefacto se versiona en el volumen; al migrar se conserva `model.v1.backup.joblib` y se verifica que los resultados publicados no cambien.

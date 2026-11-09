@@ -1,7 +1,9 @@
 """Servicio local de demostración. El volumen runtime solo debe contener datos confiables."""
 import json
+import hashlib
 import math
 import os
+import shutil
 from contextlib import asynccontextmanager
 from pathlib import Path
 from threading import RLock
@@ -13,7 +15,8 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from backend.ml import train, analyze
+from backend.ml import ARTIFACT_VERSION, train, analyze
+from backend.visual import revision, dataset_series, meter_explanation, forecast_explanation, simulate
 
 ROOT = Path(__file__).resolve().parent.parent
 RUNTIME = Path(os.environ.get('ENERGIA_RUNTIME', ROOT / 'runtime'))
@@ -57,6 +60,11 @@ def validate(data):
         if supplied is not None and (not valid_num(supplied) or supplied < 0): raise ValueError('Energía suministrada inválida')
     for m in data['meters']:
         if m.get('transformerId') not in trafos: raise ValueError('Medidor con transformador inexistente')
+        if m.get('customerType') not in ('residencial', 'comercial', 'industrial'):
+            raise ValueError('Tipo de cliente inválido')
+        contracted = m.get('capacityContractedKw')
+        if contracted is not None and (not valid_num(contracted) or contracted < 0):
+            raise ValueError('Potencia contratada inválida')
     seen=set()
     for r in data['readings']:
         if not isinstance(r,dict) or r.get('meterId') not in meters or r['meterId'] in seen: raise ValueError('Lectura con medidor inexistente o repetido')
@@ -74,16 +82,32 @@ async def lifespan(app):
     RUNTIME.mkdir(parents=True, exist_ok=True)
     if not (RUNTIME/'database.json').exists(): write_json(RUNTIME/'database.json', validate(read_json(SOURCE)))
     # The model is trained only on the original educational dataset, never on an import.
-    if not (RUNTIME/'model.joblib').exists():
-        bundle=train(validate(read_json(SOURCE)))
-        joblib.dump(bundle, RUNTIME/'model.joblib')
+    model_path = RUNTIME/'model.joblib'
+    old = joblib.load(model_path) if model_path.exists() else None
+    if old is None or old.get('version') != ARTIFACT_VERSION:
+        if old is not None:
+            backup = RUNTIME/'model.v1.backup.joblib'
+            if not backup.exists():
+                shutil.copy2(model_path, backup)
+        bundle = train(validate(read_json(SOURCE)))
+        if old is not None:
+            # Migration must not silently alter the published held-out evaluation.
+            for name in ('anomaly', 'forecast'):
+                if bundle['report'][name]['selected'] != old['report'][name]['selected'] or bundle['report'][name]['test'] != old['report'][name]['test']:
+                    raise RuntimeError('La migración cambió los resultados publicados; se conservó el respaldo')
+            bundle['report'] = old['report']
+        temporary = RUNTIME/'model.new.joblib'
+        joblib.dump(bundle, temporary)
+        os.replace(temporary, model_path)
         write_json(RUNTIME/'metrics.json', bundle['report'])
-    state['bundle']=joblib.load(RUNTIME/'model.joblib')
+    state['bundle']=joblib.load(model_path)
+    state['model_revision']=hashlib.sha256(model_path.read_bytes()).hexdigest()
     yield
 
 app=FastAPI(title='Supervisión energética', version='1.0', lifespan=lifespan)
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=['localhost','127.0.0.1','testserver'])
-app.mount('/static', StaticFiles(directory=ROOT/'web'), name='static')
+WEB = ROOT/'web'/'dist' if (ROOT/'web'/'dist'/'index.html').exists() else ROOT/'web'
+app.mount('/static', StaticFiles(directory=WEB), name='static')
 
 @app.middleware('http')
 async def headers(request, call_next):
@@ -99,7 +123,7 @@ async def headers(request, call_next):
     return response
 
 @app.get('/')
-def home(): return FileResponse(ROOT/'web'/'index.html')
+def home(): return FileResponse(WEB/'index.html')
 
 @app.get('/api/health')
 def health(): return {'status':'ok','synthetic':True,'model':state['bundle']['anomaly_name']}
@@ -148,7 +172,9 @@ def run_analysis(scenario: Scenario):
                 if loss>12: alerts.append({'type':'balance','id':t['id'],'message':f'Diferencia de energía: {loss:.1f} %'})
         for d in result['detections']:
             if d['flag']: alerts.append({'type':'anomalia','id':d['meterId'],'message':f'Puntuación anómala {d["score"]:.3f}; requiere inspección.'})
-        result['alerts']=alerts; state['results']=result
+        result['alerts']=alerts
+        result['dataset_revision']=revision(data); result['model_revision']=state['model_revision']
+        state['results']=result
     return result
 
 @app.get('/api/results')
@@ -156,3 +182,43 @@ def results(): return state['results'] or {'status':'sin análisis'}
 
 @app.get('/api/metrics')
 def metrics(): return state['bundle']['report']
+
+@app.get('/api/insight')
+def insight(meter_id: str, zone_id: str, temperature: float = 35, tree: int = 0):
+    if not math.isfinite(temperature) or not -30 <= temperature <= 60:
+        raise HTTPException(422, 'Temperatura inválida')
+    with LOCK:
+        data=read_json(RUNTIME/'database.json')
+        try:
+            return {'dataset_revision':revision(data), 'model_revision':state['model_revision'],
+                    'series':dataset_series(data,meter_id,zone_id),
+                    'meter':meter_explanation(data,state['bundle'],meter_id,tree),
+                    'forecast':forecast_explanation(data,state['bundle'],zone_id,temperature)}
+        except (ValueError, IndexError) as exc:
+            raise HTTPException(422,str(exc)) from exc
+
+class Laboratory(Scenario):
+    meter_id: str = Field(min_length=1, max_length=80)
+    zone_id: str = Field(min_length=1, max_length=80)
+    base_temperature: float = Field(default=35, ge=-30, le=60, allow_inf_nan=False)
+    operation: str = Field(default='none', pattern='^(none|uniform|night|outage)$')
+    amount: float = Field(default=50, ge=0, le=100, allow_inf_nan=False)
+    start_hour: int = Field(default=0, ge=0, le=8783)
+    duration: int = Field(default=24, ge=1, le=8784)
+    dataset_revision: str = Field(min_length=64, max_length=64)
+
+@app.post('/api/simulate')
+def laboratory(scenario: Laboratory):
+    with LOCK:
+        data=read_json(RUNTIME/'database.json')
+        current=revision(data)
+        if current != scenario.dataset_revision:
+            raise HTTPException(409, 'Los datos cambiaron; actualizá la vista')
+        try:
+            result=simulate(data,state['bundle'],scenario.meter_id,scenario.zone_id,
+                            scenario.base_temperature,scenario.temperature,scenario.power_factor,
+                            scenario.operation,scenario.amount,scenario.start_hour,scenario.duration)
+        except ValueError as exc:
+            raise HTTPException(422,str(exc)) from exc
+        result['dataset_revision']=current; result['model_revision']=state['model_revision']
+        return result
