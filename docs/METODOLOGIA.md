@@ -31,5 +31,9 @@ La alerta de carga usa `pico_kW / (capacidad_kVA × factor_potencia)` y umbral d
 ## Referencias
 
 1. F. T. Liu, K. M. Ting y Z.-H. Zhou, “Isolation Forest,” *2008 Eighth IEEE International Conference on Data Mining*, 2008, doi: [10.1109/ICDM.2008.17](https://doi.org/10.1109/ICDM.2008.17).
-2. scikit-learn, “[Common pitfalls and recommended practices](https://scikit-learn.org/stable/common_pitfalls.html)”, consultado el 9 de noviembre de 2026.
-3. scikit-learn, “[Cross-validation: evaluating estimator performance](https://scikit-learn.org/stable/modules/cross_validation.html)”, consultado el 9 de noviembre de 2026.
+2. scikit-learn 1.6.1, “[Common pitfalls and recommended practices](https://scikit-learn.org/1.6/common_pitfalls.html)”, consultado el 9 de noviembre de 2026.
+3. scikit-learn 1.6.1, “[Cross-validation: evaluating estimator performance](https://scikit-learn.org/1.6/modules/cross_validation.html)”, consultado el 9 de noviembre de 2026.
+4. ANDE, [Balance Anual de Gestión Pública: año 2025](https://www.ande.gov.py/finanzas/BAGP%202025%20ANDE.pdf), p. 13; contexto de demanda y clima.
+5. ANDE, [Plan Maestro de Gestión y Control para Reducción de Pérdidas Eléctricas en Distribución](https://www.ande.gov.py/documentos/plan_maestro/Plan%20de%20Reduccion%20de%20Perdidas%202025.pdf), 21 de noviembre de 2024; contexto institucional de pérdidas.
+
+El dataset no procede de esas fuentes institucionales. La verificación de acceso, fechas y títulos está en [FUENTES_VERIFICADAS.md](FUENTES_VERIFICADAS.md).

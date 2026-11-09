@@ -3,21 +3,20 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,es-nodecimaldot]{babel}
 \usepackage{url}
+\usepackage[hidelinks]{hyperref}
 \usepackage{flushend}
 \begin{document}
 \title{Predicción de picos y detección de anomalías en una red eléctrica sintética}
-\author{\IEEEauthorblockN{Mateo Schreiber y Santiago}
-\IEEEauthorblockA{Ingeniería Informática -- Inteligencia Aplicada\\
-Institución y apellido de Santiago: completar antes de entregar}}
+\author{\IEEEauthorblockN{Mateo Schreiber y Santiago López}}
 \maketitle
 \begin{abstract}
 Se presenta un prototipo de supervisión energética para explorar picos diarios y patrones anómalos de consumo en un contexto paraguayo. Se generó una red sintética de 100 medidores con lecturas horarias de un año. Para anomalías se compararon Isolation Forest y distancia estandarizada con particiones por medidor; para pronóstico se compararon regresión polinómica y bosque aleatorio mediante separación temporal. En la prueba reservada el detector seleccionado obtuvo F1 de 0,50, con un único caso positivo. El bosque aleatorio alcanzó MAE de 2,36 kW y RMSE de 3,35 kW, frente a 2,79 y 4,12 kW para el pico del día anterior. Una API y un dashboard permiten explorar escenarios de temperatura. Los resultados son preliminares: los datos son simulados y la temperatura futura se considera conocida.
 \end{abstract}
 \begin{IEEEkeywords}
-inteligencia aplicada, demanda eléctrica, anomalías, datos sintéticos, Paraguay
+Inteligencia Artificial Aplicada, demanda eléctrica, anomalías, datos sintéticos, Paraguay
 \end{IEEEkeywords}
 \section{Introducción y contexto}
-La planificación de demanda y el análisis de pérdidas no técnicas son tareas relevantes en sistemas eléctricos. En Paraguay, el contexto de la Administración Nacional de Electricidad (ANDE) motiva una herramienta académica capaz de explorar picos de consumo y priorizar revisiones. Este trabajo no utiliza datos de ANDE ni pretende representar sus indicadores reales.
+La planificación de demanda y el análisis de pérdidas no técnicas son tareas relevantes en Paraguay. La Administración Nacional de Electricidad (ANDE) relaciona las variaciones de demanda máxima con las condiciones climáticas \cite{ande_demanda} y contempla monitoreo y control en su plan de reducción de pérdidas \cite{ande_perdidas}. Este contexto motiva explorar picos y priorizar revisiones mediante un prototipo académico. Los datos experimentales son sintéticos y no representan mediciones ni indicadores de ANDE.
 
 El uso de modelos de anomalía permite ordenar registros cuyo comportamiento difiere del patrón aprendido. Isolation Forest propone aislar observaciones mediante particiones aleatorias \cite{liu}. La detección no supervisada puede orientar inspecciones sin demostrar por sí misma la causa de una diferencia. En pronóstico, la separación cronológica es necesaria para evitar que observaciones futuras influyan en decisiones anteriores \cite{crossvalidation}.
 
@@ -30,7 +29,7 @@ Para anomalías se calculan por medidor media, desviación estándar, percentil 
 \subsection{Modelos y evaluación}
 Se comparan Isolation Forest y una distancia euclidiana al centro de las variables estandarizadas. Ambos se ajustan con los medidores de entrenamiento, que pueden incluir anomalías; el umbral corresponde al percentil 90 de sus puntuaciones. La elección se realiza por F1 en validación. La prueba reservada se evalúa con precisión, recall, F1, matriz de confusión y precisión entre los diez mayores scores. El score no es una probabilidad calibrada.
 
-Para cada zona se suman las lecturas y se obtiene el máximo de cada día. Como variables predictoras se usan la temperatura máxima del día objetivo, el pico anterior y el de siete días antes. La temperatura representa un escenario idealizado: en prueba se usa la observación del mismo día, como si se conociera anticipadamente. Los días se dividen cronológicamente en 60/20/20; los rezagos utilizados al evaluar ya ocurrieron. Se comparan una regresión Ridge con términos polinómicos de segundo grado y un bosque aleatorio, seleccionados por MAE de validación. La referencia usa el pico del día anterior.
+Para cada zona se suman las lecturas y se obtiene el máximo de cada día. Como variables predictoras se usan la temperatura máxima del día objetivo, el pico anterior y el de siete días antes. La temperatura representa un escenario idealizado: en prueba se usa la observación del mismo día, como si se conociera anticipadamente. Los días se dividen cronológicamente en 60/20/20; los rezagos utilizados al evaluar ya ocurrieron. Se comparan una regresión Ridge con términos polinómicos de segundo grado y un bosque aleatorio \cite{forest}, seleccionados por MAE de validación. La referencia usa el pico del día anterior.
 \subsection{Arquitectura y operación}
 El pipeline Python guarda candidatos, escalas, umbrales y métricas. FastAPI expone datos, inferencia y explicaciones. La interfaz React visualiza variables y árboles con ECharts y permite comparar escenarios temporales. Tras editar el conjunto se invalidan resultados anteriores; la edición no reentrena los modelos.
 
@@ -71,16 +70,16 @@ Pico del día anterior & 2,79 & 4,12\\
 
 El mejor resultado relativo frente a la referencia no demuestra superioridad en una red real. El generador define los patrones que el experimento intenta detectar y los conjuntos comparten la misma distribución sintética. La partición por medidor impide repetir el mismo medidor entre conjuntos, pero no asegura todos los arquetipos en cada uno. La presencia de un solo positivo hace que el recall de prueba cambie drásticamente ante un único error. Además, el pronóstico evalúa días posteriores de zonas conocidas y no generaliza necesariamente a otras zonas.
 
-Los tiempos de inferencia se registran en el archivo de resultados, junto con predicciones individuales; dependen del equipo y la carga y no son una garantía operacional. Las pruebas automatizadas comprueban validación, separación de medidores, escenarios, persistencia de una edición e independencia de etiquetas durante inferencia. No constituyen una validación de campo ni una evaluación de seguridad para despliegue público.
+La ejecución de referencia registró 0,196 ms para puntuar el lote de 20 medidores y 5,445 ms para predecir 365 pares zona-día de prueba. Se cronometraron las llamadas de inferencia, excluyendo lectura, extracción de variables, entrenamiento y transporte HTTP. Son mediciones únicas del entorno de desarrollo, dependientes del equipo y su carga, no garantías operacionales. Las pruebas automatizadas verifican validación, particiones, escenarios, persistencia e independencia de etiquetas en inferencia; no constituyen validación de campo.
 La distinción entre pérdida técnica, pérdida no técnica y comportamiento irregular es central: un consumo atípico también puede responder a cambios de actividad, instalaciones defectuosas o errores de medición. No se dispone de evidencia que permita distinguir esas causas en una observación real. Por ello se usa el término señal anómala y se propone la inspección como paso posterior. El objetivo del pronóstico es el máximo de promedios horarios por zona para el siguiente día y no la potencia instantánea máxima de la red.
 
-Cada serie es una unidad de partición. El generador asigna a siete medidores un arquetipo de manipulación o falla y los restantes se consideran no anómalos según las reglas sintéticas. La clase positiva no equivale necesariamente a una conducta fraudulenta. Los registros de prueba no participan en el ajuste de la escala, el umbral o la selección del detector. La estratificación estabiliza la proporción de clases, aunque no garantiza que cada arquetipo aparezca en cada subconjunto.
+La clase positiva del generador incluye manipulación y falla y no equivale necesariamente a conducta fraudulenta. La estratificación mantiene proporciones aproximadas, pero no garantiza cada arquetipo en cada conjunto.
 
 El primer día evaluable es el octavo, porque se necesita el pico de siete días atrás. En cada fecha, las observaciones de zonas diferentes permanecen en el mismo bloque temporal; no se mezclan fechas futuras de una zona con fechas anteriores de otra durante el ajuste. Los cinco sistemas zonales son conocidos y comparten parámetros del modelo, por lo que el ensayo no mide desempeño en una zona no vista. MAE expresa el error absoluto medio y RMSE penaliza más los errores grandes. Ambas métricas se reportan en kW sobre todos los ejemplos de prueba.
 
 La referencia de persistencia permite determinar si un procedimiento más complejo mejora una regla sencilla en la muestra. La selección usa solo el MAE de validación; las cifras de prueba no se usan para elegir entre candidatos. Al tratarse de una única partición temporal y un solo año sintético, los resultados pueden variar con la estación elegida para prueba. Una evaluación más robusta requeriría varios años o generaciones independientes y múltiples cortes temporales.
 
-La base importada debe mantener un intervalo horario, un inicio común para clima y lecturas, relaciones válidas entre zonas, transformadores y medidores, y valores finitos no negativos. El servicio limita el tamaño de los archivos y guarda el conjunto de trabajo en un volumen persistente. La restauración vuelve al ejemplo original. Los modelos se entrenan con la muestra de referencia y no se actualizan automáticamente al importar datos: usar una red con otra distribución puede degradar la inferencia. El servicio se configura para acceso local, sin un mecanismo de autenticación para uso público.
+Los modelos permanecen ajustados a la muestra de referencia al importar datos: una red con otra distribución puede degradar la inferencia. El servicio valida coherencia temporal y relaciones entre entidades, y se configura para acceso local.
 
 En la matriz de confusión, dos señales positivas corresponden a registros etiquetados como normales y una coincide con la etiqueta positiva. La precisión de un tercio muestra el costo potencial de inspecciones sin confirmación, mientras que el recall de uno sobre uno describe exclusivamente el caso positivo disponible. No debe extrapolarse el mismo valor a clientes o sistemas reales. La precisión entre los diez primeros es 0,10 porque el único caso positivo de la prueba aparece en ese grupo; su interpretación depende del tamaño de la lista y de la prevalencia simulada.
 
@@ -90,8 +89,19 @@ Se integraron datos emulados, análisis, modelos entrenados, API e interfaz para
 
 Como trabajo futuro se propone ampliar las semillas y arquetipos, evaluar con mediciones reales autorizadas, estudiar incertidumbre y calibración, incorporar pronósticos meteorológicos disponibles antes del día objetivo y probar generalización entre zonas. También conviene evaluar ventanas temporales múltiples y verificar la relación entre potencia activa, aparente y pérdidas con información técnica medida.
 \begin{thebibliography}{00}
-\bibitem{liu} F. T. Liu, K. M. Ting y Z.-H. Zhou, ''Isolation Forest,'' en \emph{2008 Eighth IEEE International Conference on Data Mining}, 2008, doi: 10.1109/ICDM.2008.17.
-\bibitem{pitfalls} scikit-learn, ''Common pitfalls and recommended practices.'' [En línea]. Disponible: \url{https://scikit-learn.org/stable/common_pitfalls.html}
-\bibitem{crossvalidation} scikit-learn, ''Cross-validation: evaluating estimator performance.'' [En línea]. Disponible: \url{https://scikit-learn.org/stable/modules/cross_validation.html}
+\bibitem{ande_demanda} ANDE, \emph{Balance Anual de Gestión Pública: año 2025}, p. 13. [En línea]. Disponible: \url{https://www.ande.gov.py/finanzas/BAGP%202025%20ANDE.pdf}. Consulta: 9 nov. 2026.
+\bibitem{ande_perdidas} ANDE, \emph{Plan Maestro de Gestión y Control para Reducción de Pérdidas Eléctricas en Distribución}, 21 nov. 2024. [En línea]. Disponible: \url{https://www.ande.gov.py/documentos/plan_maestro/Plan%20de%20Reduccion%20de%20Perdidas%202025.pdf}. Consulta: 9 nov. 2026.
+\bibitem{liu} F. T. Liu, K. M. Ting y Z.-H. Zhou, \textquotedblleft Isolation Forest,\textquotedblright{} en \emph{Proc. 8th IEEE Int. Conf. Data Mining}, 2008, pp. 413--422, doi: \href{https://doi.org/10.1109/ICDM.2008.17}{10.1109/ICDM.2008.17}.
+\bibitem{crossvalidation} scikit-learn, \textquotedblleft Cross-validation: evaluating estimator performance,\textquotedblright{} documentación 1.6.1. [En línea]. Disponible: \url{https://scikit-learn.org/1.6/modules/cross_validation.html}. Consulta: 9 nov. 2026.
+\bibitem{pitfalls} scikit-learn, \textquotedblleft Common pitfalls and recommended practices,\textquotedblright{} documentación 1.6.1. [En línea]. Disponible: \url{https://scikit-learn.org/1.6/common_pitfalls.html}. Consulta: 9 nov. 2026.
+\bibitem{forest} scikit-learn, \textquotedblleft RandomForestRegressor,\textquotedblright{} documentación 1.6.1. [En línea]. Disponible: \url{https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestRegressor.html}. Consulta: 9 nov. 2026.
 \end{thebibliography}
+\section*{Glosario}
+\textbf{Dataset:} conjunto de datos. \textbf{Variable:} característica usada por el modelo. \textbf{Estandarización:} centrar y escalar con estadísticas de entrenamiento. \textbf{Score:} puntuación de anomalía, no probabilidad. \textbf{Umbral:} corte que activa una señal.
+
+\textbf{Isolation Forest:} bosque de particiones aleatorias que mide aislamiento. \textbf{Random Forest:} conjunto de árboles cuyas predicciones se promedian. \textbf{Ridge:} regresión con penalización de coeficientes. \textbf{Rezago:} valor observado en una fecha anterior.
+
+\textbf{Precisión:} positivos correctos entre los predichos positivos. \textbf{Recall:} positivos detectados entre los reales. \textbf{F1:} media armónica de precisión y recall. \textbf{Matriz de confusión:} conteos de verdaderos y falsos positivos y negativos (TP, FP, TN, FN). \textbf{MAE:} media del error absoluto. \textbf{RMSE:} raíz del error cuadrático medio.
+
+\textbf{kW:} potencia activa. \textbf{kWh:} energía. \textbf{kVA:} potencia aparente. \textbf{Factor de potencia:} relación entre potencia activa y aparente. \textbf{API REST:} interfaz de operaciones sobre HTTP. \textbf{Pipeline:} secuencia de preparación y modelado. \textbf{Docker:} plataforma de contenedores para empaquetar y ejecutar el sistema.
 \end{document}

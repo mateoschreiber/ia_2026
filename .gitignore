@@ -14,3 +14,4 @@ runtime/
 .pytest_cache/
 web/node_modules/
 web/dist/
+respaldo-observatorio*/

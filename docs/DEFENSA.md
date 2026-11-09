@@ -1,197 +1,63 @@
-# Guía de defensa
+# Defensa oral y demostración
 
-> Documento histórico del prototipo estático. Para el sistema actual, consultar [DEFENSA_NUEVA.md](DEFENSA_NUEVA.md).
+**Asignatura:** Inteligencia Artificial Aplicada
 
-Guía para presentar y defender el proyecto. Incluye guion, demo, preguntas
-frecuentes con respuestas y los números clave.
+**Ponentes:** Mateo Schreiber y Santiago López
 
----
+**Duración:** 10 minutos de exposición y demostración + 2 minutos de preguntas.
 
-## 1. Elevator pitch (30 segundos)
+El reparto siguiente es una propuesta para ensayar, no un registro de aportes individuales al desarrollo.
 
-> "Construimos un sistema que resuelve dos problemas de una distribuidora
-> eléctrica: anticipar los picos de demanda en olas de calor y detectar
-> pérdidas no técnicas (fraude o fallas de medidor). Usamos Isolation Forest,
-> un autoencoder y un modelo de pronóstico, todo corriendo en el navegador sin
-> servidor. Sobre datos emulados, concentramos 3 de 7 fraudes en las primeras 5
-> inspecciones: 60 % de acierto, 8,6 veces mejor que elegir al azar."
+## Preparación antes de presentar
 
----
+1. Iniciar Docker Desktop y ejecutar desde la raíz: docker compose up --build -d. Esperar a que http://localhost:8000/api/health responda con estado ok.
+2. Abrir http://localhost:8000, comprobar que el análisis de referencia terminó y que se ven las cuatro vistas.
+3. Para una demostración reproducible, seleccionar Centro, TR Centro 1 y medidor DAFRL498 del ejemplo. Si se importó otra base, restaurar el ejemplo solo después de exportar los datos que se quieran conservar.
+4. Tener preparadas las pestañas del dashboard y de /openapi.json; el esquema de API es local. /docs requiere conexión para cargar Swagger UI.
+5. Dejar el laboratorio sin escenario activo. Ensayar con el mismo equipo y proyector.
 
-## 2. Guion de presentación (12–15 minutos)
+## Guion de 10 minutos
 
-### 2.1 Contexto y problema (2 min)
+| Tiempo | Ponente sugerido | Contenido y acción |
+|---|---|---|
+| 0:00–1:00 | Mateo | **Problema.** Presentar priorización de inspecciones y anticipación del pico zonal en Paraguay. ANDE es el contexto; el experimento usa datos sintéticos. Activar Modo exposición, paso 1. |
+| 1:00–2:00 | Mateo | **Datos.** Paso 2: mostrar zona → transformador → medidor. Explicar 5 zonas, 20 transformadores, 100 medidores y 8.760 lecturas horarias por medidor; hay 7 etiquetas positivas simuladas. |
+| 2:00–3:00 | Mateo | **Método.** Paso 3: explicar las siete variables y las particiones 60/20/20. El escalado usa entrenamiento; validación selecciona y prueba evalúa. |
+| 3:00–5:00 | Mateo | **Demo de anomalías.** Paso 4: perfil, mapa de calor, aportes cuadrados a la distancia y recorrido real de un árbol de Isolation Forest. El bosque completo produce su score; los detectores tienen escalas y umbrales propios. |
+| 5:00–7:00 | Santiago | **Demo de demanda y laboratorio.** Paso 5: abrir Laboratorio, probar Día caluroso y comparar picos. En Demanda, mostrar las tres entradas, las salidas de los 100 árboles y el promedio. Aplicar una reducción temporal del medidor, observar score/posición y descartar el escenario. |
+| 7:00–8:30 | Santiago | **Resultados.** Paso 6: matriz de confusión, candidatos y comparación con el día anterior. Leer las cifras de la tabla siguiente. Aclarar la única etiqueta positiva en prueba y la temperatura idealizada. |
+| 8:30–10:00 | Santiago | **Conclusiones.** Qué ayuda a decidir el sistema, limitaciones y trabajo futuro: más datos, inspecciones autorizadas, evaluación externa y pronóstico meteorológico real. Una señal no confirma fraude. |
 
-- ANDE: ~1,8 millones de usuarios; pérdidas no técnicas por conexiones
-  clandestinas y fraude.
-- Dos tareas: **(a)** predecir demanda máxima por zona; **(b)** detectar
-  medidores/zonas con pérdida no técnica.
-- Por qué es difícil: desbalance (2–10 %), etiquetas escasas, drift, adversarial,
-  legal.
+## Cifras que deben coincidir
 
-### 2.2 Datos (2 min)
-
-- No hay datos públicos de ANDE → **datos emulados** con ground truth.
-- Modelo generativo: perfil horario × estacionalidad × respuesta térmica × AR(1).
-- 7 arquetipos de fraude (bypass total/parcial, inversión de fase, manipulación
-  nocturna, conexión directa, intermitente, medidor defectuoso).
-- Balance energético: suministrado vs facturado.
-
-### 2.3 Algoritmos (4 min) — **el corazón**
-
-- **Features (11):** nivel, variabilidad, planicidad (cv), zeroRatio, ratios
-  día/noche/tarde, comparación con vecindario y con el tipo de cliente.
-- **Isolation Forest:** las anomalías se aíslan con menos cortes; score
-  $2^{-E[h]/c(n)}$. No supervisado, rápido, robusto.
-- **Autoencoder 11→4→11:** aprende a reconstruir lo normal; alto error de
-  reconstrucción = anomalía.
-- **Score estadístico:** promedio de |z|.
-- **Combinación:** 0.45 IF + 0.30 AE + 0.25 stat; umbral = percentil 90.
-- **Pronóstico:** pico diario vs temperatura máxima; OLS; percentil 95
-  (porque subestimar un pico cuesta más que sobreestimarlo).
-- **Balance:** pérdidas = suministrado − facturado; alerta si > 12 %.
-
-### 2.4 Demo en vivo (3 min)
-
-Ver sección 3.
-
-### 2.5 Resultados y honestidad (2 min)
-
-- `precision@5 = 0.60` (vs 0.07 al azar → 8,6×).
-- `recall@30 = 0.71`.
-- Detecta los 3 arquetipos evidentes; los sutiles quedan más abajo.
-- Limitación: datos sintéticos, sin validez de campo.
-
-### 2.6 Mundo real y cierre (2 min)
-
-- Pipeline AMI → MDM → features → modelos → ranking → inspección → feedback.
-- Priorización como optimización (knapsack/cobertura).
-- Métricas de negocio: hit rate, costo por inspección, ROI.
-- Gobernanza: el modelo prioriza inspecciones, no sanciona.
-
----
-
-## 3. Demo paso a paso
-
-1. Abrir `index.html` → **Inicio** → "Abrir base de datos" →
-   `data/database.json`.
-2. **Dashboard**:
-   - Mostrar KPIs (pico pronosticado, medidores en riesgo, alertas,
-     sobrecargas).
-   - Gráfico de pronóstico por zona (barras P95 vs línea base).
-   - Ranking de medidores: señalar los 3 fraudes en el top.
-   - Curva de carga: elegir un medidor marcado y comparar con la media del
-     transformador (se ve la anomalía).
-   - Tabla de alertas: sobrecargas y pérdidas.
-3. **Datos (CRUD)**: editar un medidor (p. ej. cambiar tipo de cliente) y
-   mostrar que el motor **se recalcula**.
-4. **Métricas**: matriz de confusión, `precision@k` y curva de inspección.
-   Explicar el *lift* frente al azar.
-
-> Si no hay internet o falla algo: el proyecto es 100 % local; Chart.js está
-> vendoreado.
-
----
-
-## 4. Números clave para recordar
-
-| Concepto | Valor |
+| Resultado | Experimento de referencia |
 |---|---|
-| Medidores / fraude | 100 / 7 (7 %) |
-| `precision@5` | 0.60 (3/5) |
-| `precision@10` | 0.30 (3/10) |
-| `recall@30` | 0.71 (5/7) |
-| Lift vs azar (k=5) | 8.6× |
-| Matriz de confusión | TP 3, FP 8, FN 4, TN 85 |
-| Precision / Recall / F1 | 0.273 / 0.429 / 0.333 |
-| Duración del cálculo | ~150 ms (100 medidores × 8760 h) |
-| Alertas | 5 sobrecarga + 12 pérdida |
+| Detector seleccionado | Distancia estandarizada; F1 de validación 0,80 frente a 0,50 de Isolation Forest. |
+| Prueba de anomalías | 20 medidores, 1 positivo; TN=17, FP=2, FN=0, TP=1. |
+| Precisión / recall / F1 | 0,333 / 1,000 / 0,500. |
+| Precisión @ 10 | 0,10. |
+| Pronóstico seleccionado | Random Forest. |
+| MAE / RMSE de pronóstico | 2,36 / 3,35 kW. |
+| MAE / RMSE del día anterior | 2,79 / 4,12 kW. |
+| Inferencia registrada | 0,196 ms por lote de 20 medidores; 5,445 ms por lote de 365 pares zona-día. Sin lectura, variables, entrenamiento ni HTTP. |
 
----
+Son tiempos de una sola ejecución, dependientes del equipo y su carga. El laboratorio muestra respuesta del modelo, no métricas científicas nuevas. Una perturbación puede no superar el umbral; mostrar ese resultado con honestidad.
 
-## 5. Preguntas frecuentes (y respuestas)
+## Dos minutos de preguntas
 
-**¿Por qué datos sintéticos?**
-No hay acceso a datos AMI de ANDE ni a etiquetas de fraude. Los sintéticos nos
-dan ground truth controlado y reproducibilidad. Declaramos que no miden
-desempeño real.
+- **¿Por qué no ganó Isolation Forest?** La distancia tuvo mayor F1 de validación. Solo había dos positivos de validación; la selección es inestable y no demuestra superioridad general.
+- **¿El score es probabilidad de fraude?** No. Ordena comportamientos para revisión; puede señalar fallas y requiere inspección.
+- **¿Cómo se evita la filtración?** Las etiquetas y metadatos de anomalía no son variables; se separan medidores y el escalado usa entrenamiento. El pronóstico respeta el orden temporal.
+- **¿Por qué el recall es 1?** Se detectó el único positivo de prueba. Un solo error lo cambiaría drásticamente.
+- **¿Qué predice el bosque de demanda?** El máximo de potencia media horaria del día siguiente por zona, usando temperatura hipotética y picos de uno y siete días atrás.
+- **¿Se pronostica el clima?** No. En evaluación se usa temperatura observada como si se conociera anticipadamente.
+- **¿Qué cambia el laboratorio?** Una copia temporal. No escribe la base ni reentrena modelos.
+- **¿Qué pasa al editar o importar?** Se invalidan resultados y la interfaz solicita automáticamente un análisis nuevo. Los modelos siguen ajustados al ejemplo.
+- **¿Cómo se calcula la carga?** Compara kW con kVA por un factor de potencia supuesto; es una simplificación.
+- **¿Qué evidencia un sistema completo?** Dataset documentado, modelos, API, UI y Docker; ver [ENTREGA.md](ENTREGA.md).
 
-**¿Por qué Isolation Forest y no un clasificador supervisado?**
-En producción no hay etiquetas al inicio; las inspecciones son caras. IF es no
-supervisado y escala. Cuando haya etiquetas, se pasa a XGBoost/Random Forest.
+## Recuperación durante la demostración
 
-**¿Por qué un autoencoder?**
-Captura relaciones no lineales entre features y aprende la "forma de lo normal".
-Su error de reconstrucción es una señal complementaria a IF.
+Si una vista falla, recargar y consultar el estado del servicio. Si cambió un control, recalcular el escenario antes de usar el resultado. Si Docker se detuvo, iniciarlo y ejecutar docker compose up -d; el JSON y los modelos permanecen en el volumen. Una captura o el informe pueden apoyar la explicación, pero no reemplazan la demostración en vivo exigida.
 
-**¿Cómo eligieron el umbral?**
-Percentil 90: marca ~10 % de medidores, que es la capacidad de inspección. En
-producción se elige por costo-beneficio (falso positivo vs fraude no detectado).
-
-**¿Por qué no usan accuracy?**
-Con 7 % de fraude, decir "todos normales" da 93 % de accuracy y es inútil. Por
-eso usamos `precision@k`, `recall` y lift.
-
-**¿Por qué `precision@10 = 0.30` no es bajo?**
-Al azar sería 0.07. Es 4,3× mejor. Y en k=5 es 8,6× mejor. La industria prioriza
-concentrar fraudes en pocas inspecciones.
-
-**¿Qué pasa con los fraudes que no detectan?**
-Son los de escalado uniforme, intermitentes y defecto de medidor: su señal es
-débil o se confunde con clientes de bajo consumo. En la práctica se detectan con
-balance de transformador o inspección.
-
-**¿Cómo evitarían falsos positivos?**
-Ranking + revisión humana, evidencia explicable, balance energético como
-confirmación, y umbral ajustado por costo. Nunca sanción automática.
-
-**¿Cómo lo llevarían a producción?**
-AMI → MDM → feature store → modelos → ranking → inspección → feedback. Con
-Spark/Kafka para escala, MLflow para MLOps, monitoreo de drift y reentrenamiento.
-
-**¿Cómo manejan el drift?**
-Monitoreo de distribución de scores y hit rate; reentrenamiento periódico;
-validación temporal; champion/challenger.
-
-**¿Qué pasa si el defraudador adapta su comportamiento?**
-Es un problema adversarial. Se combinan señales (consumo, balance, topología) y
-se rota el patrón de control; no se depende de un único modelo.
-
-**¿Dónde entra la IA clásica?**
-Reglas del dominio, balance energético, razonamiento con incertidumbre y
-**optimización de la priorización de inspecciones** (knapsack/cobertura).
-
-**¿Por qué la app no tiene servidor?**
-Requisito del proyecto. Se resolvió con HTML/CSS/JS, `file://`, IndexedDB y
-Chart.js vendoreado. Limitación: hay que abrir el JSON la primera vez por CORS.
-
-**¿Por qué IDs aleatorios?**
-Para no filtrar estructura artificial; los datasets reales usan identificadores
-arbitrarios (`CONS_NO`). Así el modelo no "aprende" del orden.
-
-**¿Qué mejorarían con más tiempo?**
-Datos reales, modelos secuenciales, atribución a nivel de medidor dentro del
-transformador, umbral costo-óptimo, active learning y explicabilidad (SHAP).
-
----
-
-## 6. Limitaciones a declarar proactivamente
-
-Decirlas **antes** de que las pregunten da credibilidad:
-
-1. Datos sintéticos: no hay validez de campo.
-2. Muestra pequeña (100 medidores).
-3. Sin validación temporal real ni drift.
-4. Umbral fijo (no costo-óptimo).
-5. Sin topología fina (fase, aguas abajo).
-6. La evaluación usa etiquetas del generador, no de inspecciones.
-
----
-
-## 7. Frases de cierre
-
-- "El sistema no acusa: **prioriza inspecciones** con evidencia."
-- "El valor no está en el 88 % de accuracy, sino en **concentrar fraudes en las
-  primeras inspecciones**."
-- "Es un **banco de pruebas reproducible** de una arquitectura real, no un
-  producto en producción."
+El ensayo y la presentación acreditan duración y participación; el software no demuestra por sí mismo ocho semanas de trabajo.
