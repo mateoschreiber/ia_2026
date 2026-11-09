@@ -48,5 +48,3 @@ La primera verifica navegación, laboratorio, exposición, teclado, tamaños y a
 - [Informe IEEE](informe_ieee.pdf) y su fuente editable.
 - [Resultados experimentales](resultados_experimento.json).
 - [Comprobación de fuentes](FUENTES_VERIFICADAS.md).
-
-El prototipo anterior queda identificado como histórico en el README; no constituye una segunda ruta de entrega.

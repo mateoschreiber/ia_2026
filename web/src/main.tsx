@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import * as echarts from 'echarts';
-import {Activity, ArrowDownRight, ArrowRight, BarChart3, BookOpen, Check, ChevronDown, ChevronLeft, ChevronRight, CircleHelp, Cpu, Database, Download, Eye, FlaskConical, Gauge, GitBranch, Info, LayoutDashboard, Menu, Play, RotateCcw, Search, ShieldAlert, SlidersHorizontal, ThermometerSun, Upload, X, Zap} from 'lucide-react';
+import {Activity, ArrowRight, BarChart3, BookOpen, Check, ChevronLeft, ChevronRight, Cpu, Database, Download, FlaskConical, GitBranch, Info, LayoutDashboard, Menu, Play, RotateCcw, ShieldAlert, SlidersHorizontal, ThermometerSun, Upload, X, Zap} from 'lucide-react';
 import './style.css';
 import './alerts.css';
 
 type Obj = Record<string, any>;
 type View = 'red' | 'anomalies' | 'demand' | 'evaluation';
 type Operation = 'none' | 'uniform' | 'night' | 'outage';
-const blue='#003b71', red='#d71920', muted='#718499', pale='#e3ebf1';
+const blue='#003b71', red='#d71920', muted='#718499';
 
 async function api(path:string, options?:RequestInit) {
   const r=await fetch(path,options); const value=await r.json().catch(()=>({detail:'Error de conexión'}));

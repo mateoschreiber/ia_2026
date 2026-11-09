@@ -20,7 +20,7 @@ El generador `generator/generate.py` construye una red ficticia de 5 zonas, 20 t
 
 Se extraen por medidor media, desviación, percentil 95, proporción de ceros, medias nocturna y vespertina, y coeficiente de variación. Las características no usan etiquetas, metadatos de fraude ni estadísticas de otros medidores. Se dividen medidores 60/20/20 de manera estratificada con semilla 42. La escala, modelos y umbral del percentil 90 se ajustan solo en entrenamiento, que puede contener anomalías. Se selecciona por F1 en validación entre Isolation Forest y la distancia euclidiana al centro de variables estandarizadas; la prueba se reserva para el informe final. El orden está basado en score, no en probabilidad calibrada.
 
-La partición fija no equivale a un estudio poblacional: hay siete casos positivos, solo dos en validación y uno en prueba. La asignación por arquetipo no garantiza representar cada tipo en cada conjunto. La selección puede cambiar con una sola observación. Un diseño futuro debe usar más simulaciones independientes y datos de campo consentidos. El autoencoder del prototipo histórico no se compara aquí porque no cuenta con este protocolo independiente.
+La partición fija no equivale a un estudio poblacional: hay siete casos positivos, solo dos en validación y uno en prueba. La asignación por arquetipo no garantiza representar cada tipo en cada conjunto. La selección puede cambiar con una sola observación. Un diseño futuro debe usar más simulaciones independientes y datos de campo consentidos.
 
 ## Pronóstico y cargas
 

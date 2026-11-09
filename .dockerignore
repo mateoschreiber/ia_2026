@@ -1,9 +1,13 @@
 .git
+README.md
+docs
+test
+generator
 .venv
 web/node_modules
 web/dist
 runtime
-.pytest_cache
-__pycache__
-*.pyc
+**/.pytest_cache
+**/__pycache__
+**/*.pyc
 respaldo-observatorio*

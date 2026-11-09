@@ -65,6 +65,7 @@ with sync_playwright() as p:
         page.get_by_role('button',name='Salir del modo exposición').click()
         for width in (375, 768, 1024, 1440):
             page.set_viewport_size({'width':width,'height':844})
+            page.wait_for_function('() => document.documentElement.scrollWidth <= innerWidth',timeout=3000)
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Desborde horizontal: {width}px'
         page.set_viewport_size({'width':390,'height':844})
         page.screenshot(path=os.path.join(os.environ.get('TEMP','.'),'observatorio-'+Path(executable).stem+'.png'),full_page=True)

@@ -82,7 +82,7 @@ docker compose up --build -d
 
 Esperar el inicio y abrir **http://localhost:8000**.
 
-El comando construye la interfaz, prepara la API e inicializa los datos y modelos. La primera ejecución requiere internet. Usar la URL; no abrir el `index.html` de la raíz.
+El comando construye la interfaz, prepara la API e inicializa los datos y modelos. La primera ejecución requiere internet.
 
 ## Comandos básicos
 

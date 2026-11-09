@@ -6,7 +6,7 @@ desktop.ini
 # Logs y temporales
 *.log
 
-# Python (solo el generador de desarrollo)
+# Python, datos de ejecución y dependencias locales
 __pycache__/
 *.pyc
 .venv/
