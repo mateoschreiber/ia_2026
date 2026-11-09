@@ -41,8 +41,6 @@ La detección compara **Isolation Forest y distancia estandarizada**; el pronós
 
 **Tecnologías:** Python y scikit-learn · FastAPI · React y TypeScript · Apache ECharts · Docker Compose.
 
-Más información: [metodología y datos](docs/METODOLOGIA.md) · [guía de algoritmos](docs/GUIA_ALGORITMOS.md) · [informe IEEE](docs/informe_ieee.pdf).
-
 ---
 
 ## 1. Instalar los requisitos
