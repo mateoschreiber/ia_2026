@@ -1,5 +1,7 @@
 # Documentación técnica
 
+> Documento histórico del prototipo estático. Para la metodología actual, consultar [METODOLOGIA.md](METODOLOGIA.md) y el [README](../README.md).
+
 **Proyecto Final — Inteligencia Artificial**
 *Predicción de picos de consumo eléctrico y detección de pérdidas no técnicas*
 

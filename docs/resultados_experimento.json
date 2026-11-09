@@ -1,0 +1,2894 @@
+{
+  "seed": 42,
+  "anomaly": {
+    "selected": "distance",
+    "validation": {
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8,
+      "confusion": [
+        [
+          17,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "precision_at_k": 0.2,
+      "k": 10,
+      "n": 20,
+      "positives": 2
+    },
+    "validation_candidates": {
+      "isolation_forest": {
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "confusion": [
+          [
+            17,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "precision_at_k": 0.2,
+        "k": 10,
+        "n": 20,
+        "positives": 2
+      },
+      "distance": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "confusion": [
+          [
+            17,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "precision_at_k": 0.2,
+        "k": 10,
+        "n": 20,
+        "positives": 2
+      }
+    },
+    "test": {
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "f1": 0.5,
+      "confusion": [
+        [
+          17,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "precision_at_k": 0.1,
+      "k": 10,
+      "n": 20,
+      "positives": 1
+    },
+    "inference_ms_batch": 0.19559999964258168,
+    "split": {
+      "train": [
+        "BRNBKRJ8",
+        "XMDS8HE3",
+        "DDWDD8LD",
+        "S3JV7WEA",
+        "J7W656L8",
+        "Z5KR4MLM",
+        "2MV3AVUP",
+        "TETY3XBH",
+        "N293RKAG",
+        "KBCR8E74",
+        "SWH3A74D",
+        "V9HGRJ27",
+        "FMEER3HR",
+        "CZJFUW4M",
+        "28AYV24Q",
+        "GJSHGKTU",
+        "LG2C8QN7",
+        "FUXFRVQN",
+        "9CJXG6G7",
+        "SMSCG5YW",
+        "KQ2KPE44",
+        "QHNWHMNP",
+        "Z4K4G94T",
+        "2XB9WM9P",
+        "YX27WNR2",
+        "65AHEKCZ",
+        "RZUL6VAV",
+        "2ZGQ8BWQ",
+        "AK4KE8SX",
+        "YVQQBN3X",
+        "K5JCVZCY",
+        "5TCAXJSL",
+        "K2NJET4X",
+        "9QT59B2X",
+        "H4Q266V5",
+        "M86TM59F",
+        "5J7MDS2W",
+        "VGBV23NE",
+        "LVBCWDUY",
+        "NZ96DPTJ",
+        "A4FQH7HK",
+        "YV5S7VN2",
+        "QNSJGCV6",
+        "YSXTTANF",
+        "EURTXWFJ",
+        "F2R9KQ7S",
+        "P7WX2T4S",
+        "EXA49G5Z",
+        "3L7JB3BF",
+        "U69HBRLV",
+        "PXPS9SDF",
+        "HP7SZLHL",
+        "TAUV9K68",
+        "5QM7DRH7",
+        "7GEPSJYE",
+        "5H2NSC5A",
+        "DAFRL498",
+        "CF4WSPWR",
+        "9UT488R7",
+        "FUQ3RVZ8"
+      ],
+      "validation": [
+        "P3DL2A2S",
+        "NZ5EXWHV",
+        "6SRT9RT6",
+        "Y5XY7TVS",
+        "7U59KNUP",
+        "7K5MT875",
+        "8GR2YUUB",
+        "RGVHCY5Z",
+        "5W766P8L",
+        "V4W3UJN4",
+        "3TAD9UQY",
+        "8TUGNUQZ",
+        "CZP66RZG",
+        "NJZTLS8U",
+        "XH7EKQ3Z",
+        "M4BMX4RT",
+        "PRGY4KRL",
+        "J9GAU886",
+        "TWRFT6R7",
+        "V3T96FC5"
+      ],
+      "test": [
+        "E7V4HJCC",
+        "RMELA468",
+        "RUQF5GG6",
+        "ZYD3TNH7",
+        "F8BDYQEC",
+        "R49R896B",
+        "WSBFQBTC",
+        "3FX2W9CE",
+        "Q4CW822K",
+        "MVAJTCDU",
+        "7SA7ULE6",
+        "VDGPPSFL",
+        "9EDKKVFR",
+        "8Y4XWGLX",
+        "EDLVU6H7",
+        "F3ASH7ZS",
+        "UCQUU7EQ",
+        "SN5HQKTK",
+        "X74DP42B",
+        "49U3C7FW"
+      ]
+    },
+    "test_predictions": [
+      {
+        "meterId": "E7V4HJCC",
+        "label": 0,
+        "score": 0.9389971135442232,
+        "flag": false
+      },
+      {
+        "meterId": "RMELA468",
+        "label": 0,
+        "score": 1.2090963219520776,
+        "flag": false
+      },
+      {
+        "meterId": "RUQF5GG6",
+        "label": 0,
+        "score": 4.634039768388463,
+        "flag": true
+      },
+      {
+        "meterId": "ZYD3TNH7",
+        "label": 0,
+        "score": 5.251300699660389,
+        "flag": true
+      },
+      {
+        "meterId": "F8BDYQEC",
+        "label": 0,
+        "score": 0.933464556644148,
+        "flag": false
+      },
+      {
+        "meterId": "R49R896B",
+        "label": 0,
+        "score": 1.6874360603292715,
+        "flag": false
+      },
+      {
+        "meterId": "WSBFQBTC",
+        "label": 0,
+        "score": 0.7420529088456158,
+        "flag": false
+      },
+      {
+        "meterId": "3FX2W9CE",
+        "label": 0,
+        "score": 2.1393879603886976,
+        "flag": false
+      },
+      {
+        "meterId": "Q4CW822K",
+        "label": 0,
+        "score": 0.9982382427442114,
+        "flag": false
+      },
+      {
+        "meterId": "MVAJTCDU",
+        "label": 0,
+        "score": 0.8796792482177693,
+        "flag": false
+      },
+      {
+        "meterId": "7SA7ULE6",
+        "label": 0,
+        "score": 0.6768611459437258,
+        "flag": false
+      },
+      {
+        "meterId": "VDGPPSFL",
+        "label": 1,
+        "score": 4.121643570768292,
+        "flag": true
+      },
+      {
+        "meterId": "9EDKKVFR",
+        "label": 0,
+        "score": 0.7867122792609472,
+        "flag": false
+      },
+      {
+        "meterId": "8Y4XWGLX",
+        "label": 0,
+        "score": 0.7055181256670051,
+        "flag": false
+      },
+      {
+        "meterId": "EDLVU6H7",
+        "label": 0,
+        "score": 0.5222757784047283,
+        "flag": false
+      },
+      {
+        "meterId": "F3ASH7ZS",
+        "label": 0,
+        "score": 2.3663587572672204,
+        "flag": false
+      },
+      {
+        "meterId": "UCQUU7EQ",
+        "label": 0,
+        "score": 2.6238099928834666,
+        "flag": false
+      },
+      {
+        "meterId": "SN5HQKTK",
+        "label": 0,
+        "score": 1.112273762148745,
+        "flag": false
+      },
+      {
+        "meterId": "X74DP42B",
+        "label": 0,
+        "score": 0.7249917048147426,
+        "flag": false
+      },
+      {
+        "meterId": "49U3C7FW",
+        "label": 0,
+        "score": 1.3383005153990095,
+        "flag": false
+      }
+    ]
+  },
+  "forecast": {
+    "selected": "random_forest",
+    "validation_mae_kw": {
+      "polynomial_ridge": 0.7848740535362031,
+      "random_forest": 0.6194870193908073
+    },
+    "test": {
+      "mae_kw": 2.363942627909003,
+      "rmse_kw": 3.345709784441842
+    },
+    "baseline_previous_day": {
+      "mae_kw": 2.7850958904109593,
+      "rmse_kw": 4.11751494412206
+    },
+    "inference_ms_batch": 5.44499999978143,
+    "test_predictions": [
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-20",
+        "actual_kw": 16.529999999999998,
+        "predicted_kw": 15.979167373737384,
+        "baseline_kw": 16.550000000000004
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-21",
+        "actual_kw": 15.79,
+        "predicted_kw": 16.04695626262627,
+        "baseline_kw": 16.529999999999998
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-22",
+        "actual_kw": 17.199999999999996,
+        "predicted_kw": 15.847937871572878,
+        "baseline_kw": 15.79
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-23",
+        "actual_kw": 17.27,
+        "predicted_kw": 16.40281007215008,
+        "baseline_kw": 17.199999999999996
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-24",
+        "actual_kw": 16.86,
+        "predicted_kw": 16.47993968975469,
+        "baseline_kw": 17.27
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-25",
+        "actual_kw": 17.99,
+        "predicted_kw": 15.993459754689761,
+        "baseline_kw": 16.86
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-26",
+        "actual_kw": 17.37,
+        "predicted_kw": 16.528681861471867,
+        "baseline_kw": 17.99
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-27",
+        "actual_kw": 16.9,
+        "predicted_kw": 16.451107113997114,
+        "baseline_kw": 17.37
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-28",
+        "actual_kw": 17.720000000000002,
+        "predicted_kw": 16.119758762626272,
+        "baseline_kw": 16.9
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-29",
+        "actual_kw": 16.869999999999997,
+        "predicted_kw": 17.901121708569214,
+        "baseline_kw": 17.720000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-30",
+        "actual_kw": 17.459999999999997,
+        "predicted_kw": 17.058879754967254,
+        "baseline_kw": 16.869999999999997
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-10-31",
+        "actual_kw": 17.95,
+        "predicted_kw": 16.71990970057721,
+        "baseline_kw": 17.459999999999997
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-01",
+        "actual_kw": 20.82,
+        "predicted_kw": 18.04779564796314,
+        "baseline_kw": 17.95
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-02",
+        "actual_kw": 17.53,
+        "predicted_kw": 20.229009056776555,
+        "baseline_kw": 20.82
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-03",
+        "actual_kw": 19.390000000000004,
+        "predicted_kw": 16.731340652958163,
+        "baseline_kw": 17.53
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-04",
+        "actual_kw": 18.060000000000002,
+        "predicted_kw": 17.993365634920636,
+        "baseline_kw": 19.390000000000004
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-05",
+        "actual_kw": 18.240000000000002,
+        "predicted_kw": 16.800407388167397,
+        "baseline_kw": 18.060000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-06",
+        "actual_kw": 20.460000000000004,
+        "predicted_kw": 17.79868869047618,
+        "baseline_kw": 18.240000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-07",
+        "actual_kw": 18.35,
+        "predicted_kw": 18.831091206848704,
+        "baseline_kw": 20.460000000000004
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-08",
+        "actual_kw": 19.38,
+        "predicted_kw": 19.09424544733045,
+        "baseline_kw": 18.35
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-09",
+        "actual_kw": 20.4,
+        "predicted_kw": 17.97797515873016,
+        "baseline_kw": 19.38
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-10",
+        "actual_kw": 19.71,
+        "predicted_kw": 19.417502967310472,
+        "baseline_kw": 20.4
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-11",
+        "actual_kw": 19.330000000000002,
+        "predicted_kw": 18.409248452380954,
+        "baseline_kw": 19.71
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-12",
+        "actual_kw": 20.490000000000002,
+        "predicted_kw": 18.42941261904763,
+        "baseline_kw": 19.330000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-13",
+        "actual_kw": 21.570000000000004,
+        "predicted_kw": 20.0419836904762,
+        "baseline_kw": 20.490000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-14",
+        "actual_kw": 19.68,
+        "predicted_kw": 20.915176351148844,
+        "baseline_kw": 21.570000000000004
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-15",
+        "actual_kw": 21.35,
+        "predicted_kw": 19.055676998557004,
+        "baseline_kw": 19.68
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-16",
+        "actual_kw": 20.65,
+        "predicted_kw": 21.137500508658007,
+        "baseline_kw": 21.35
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-17",
+        "actual_kw": 19.229999999999997,
+        "predicted_kw": 19.742807864357864,
+        "baseline_kw": 20.65
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-18",
+        "actual_kw": 21.01,
+        "predicted_kw": 18.84505180624931,
+        "baseline_kw": 19.229999999999997
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-19",
+        "actual_kw": 21.509999999999998,
+        "predicted_kw": 20.758455746753242,
+        "baseline_kw": 21.01
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-20",
+        "actual_kw": 21.860000000000003,
+        "predicted_kw": 21.338701731601727,
+        "baseline_kw": 21.509999999999998
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-21",
+        "actual_kw": 20.41,
+        "predicted_kw": 20.63388876623376,
+        "baseline_kw": 21.860000000000003
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-22",
+        "actual_kw": 22.599999999999998,
+        "predicted_kw": 20.537294246031742,
+        "baseline_kw": 20.41
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-23",
+        "actual_kw": 23.17,
+        "predicted_kw": 21.898685909090908,
+        "baseline_kw": 22.599999999999998
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-24",
+        "actual_kw": 21.900000000000002,
+        "predicted_kw": 21.77198171189921,
+        "baseline_kw": 23.17
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-25",
+        "actual_kw": 23.090000000000003,
+        "predicted_kw": 20.958641038961037,
+        "baseline_kw": 21.900000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-26",
+        "actual_kw": 23.43,
+        "predicted_kw": 22.03493565684315,
+        "baseline_kw": 23.090000000000003
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-27",
+        "actual_kw": 23.43,
+        "predicted_kw": 22.04361299811299,
+        "baseline_kw": 23.43
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-28",
+        "actual_kw": 23.6,
+        "predicted_kw": 21.908472655122655,
+        "baseline_kw": 23.43
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-29",
+        "actual_kw": 23.179999999999996,
+        "predicted_kw": 22.75896698690198,
+        "baseline_kw": 23.6
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-11-30",
+        "actual_kw": 25.49,
+        "predicted_kw": 22.870759314851817,
+        "baseline_kw": 23.179999999999996
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-01",
+        "actual_kw": 22.889999999999997,
+        "predicted_kw": 23.145467817460318,
+        "baseline_kw": 25.49
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-02",
+        "actual_kw": 21.36,
+        "predicted_kw": 22.89905751692752,
+        "baseline_kw": 22.889999999999997
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-03",
+        "actual_kw": 26.939999999999998,
+        "predicted_kw": 21.85987708874459,
+        "baseline_kw": 21.36
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-04",
+        "actual_kw": 23.79,
+        "predicted_kw": 24.63956523809523,
+        "baseline_kw": 26.939999999999998
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-05",
+        "actual_kw": 27.47,
+        "predicted_kw": 22.828595256410253,
+        "baseline_kw": 23.79
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-06",
+        "actual_kw": 23.869999999999997,
+        "predicted_kw": 25.359040342712834,
+        "baseline_kw": 27.47
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-07",
+        "actual_kw": 25.580000000000005,
+        "predicted_kw": 24.160543207070706,
+        "baseline_kw": 23.869999999999997
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-08",
+        "actual_kw": 26.719999999999995,
+        "predicted_kw": 24.384112835497834,
+        "baseline_kw": 25.580000000000005
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-09",
+        "actual_kw": 25.749999999999996,
+        "predicted_kw": 23.64171090548341,
+        "baseline_kw": 26.719999999999995
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-10",
+        "actual_kw": 25.150000000000002,
+        "predicted_kw": 26.55447889610389,
+        "baseline_kw": 25.749999999999996
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-11",
+        "actual_kw": 25.62,
+        "predicted_kw": 24.121047611832605,
+        "baseline_kw": 25.150000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-12",
+        "actual_kw": 29.17,
+        "predicted_kw": 27.178071370851367,
+        "baseline_kw": 25.62
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-13",
+        "actual_kw": 33.709999999999994,
+        "predicted_kw": 31.20439730519481,
+        "baseline_kw": 29.17
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-14",
+        "actual_kw": 41.29,
+        "predicted_kw": 37.923312651515154,
+        "baseline_kw": 33.709999999999994
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-15",
+        "actual_kw": 36.57,
+        "predicted_kw": 45.908838961038974,
+        "baseline_kw": 41.29
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-16",
+        "actual_kw": 39.36999999999999,
+        "predicted_kw": 41.44216261183262,
+        "baseline_kw": 36.57
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-17",
+        "actual_kw": 34.69,
+        "predicted_kw": 38.295452550505054,
+        "baseline_kw": 39.36999999999999
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-18",
+        "actual_kw": 40.3,
+        "predicted_kw": 39.0462907070707,
+        "baseline_kw": 34.69
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-19",
+        "actual_kw": 47.6,
+        "predicted_kw": 47.57037054834055,
+        "baseline_kw": 40.3
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-20",
+        "actual_kw": 38.81,
+        "predicted_kw": 51.32374560606062,
+        "baseline_kw": 47.6
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-21",
+        "actual_kw": 33.91,
+        "predicted_kw": 40.090501468254,
+        "baseline_kw": 38.81
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-22",
+        "actual_kw": 25.83,
+        "predicted_kw": 35.657085238095235,
+        "baseline_kw": 33.91
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-23",
+        "actual_kw": 30.490000000000002,
+        "predicted_kw": 27.52586861471861,
+        "baseline_kw": 25.83
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-24",
+        "actual_kw": 28.379999999999995,
+        "predicted_kw": 32.08372198412698,
+        "baseline_kw": 30.490000000000002
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-25",
+        "actual_kw": 29.779999999999998,
+        "predicted_kw": 30.455455039682537,
+        "baseline_kw": 28.379999999999995
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-26",
+        "actual_kw": 29.04,
+        "predicted_kw": 31.956245822510823,
+        "baseline_kw": 29.779999999999998
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-27",
+        "actual_kw": 31.57,
+        "predicted_kw": 31.50488244949495,
+        "baseline_kw": 29.04
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-28",
+        "actual_kw": 42.11,
+        "predicted_kw": 33.162275122100134,
+        "baseline_kw": 31.57
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-29",
+        "actual_kw": 45.470000000000006,
+        "predicted_kw": 47.4669826911977,
+        "baseline_kw": 42.11
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-30",
+        "actual_kw": 43.72,
+        "predicted_kw": 45.95034332611833,
+        "baseline_kw": 45.470000000000006
+      },
+      {
+        "zoneId": "HBTRQJGF",
+        "date": "2025-12-31",
+        "actual_kw": 30.0,
+        "predicted_kw": 38.39529134920634,
+        "baseline_kw": 43.72
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-20",
+        "actual_kw": 23.72,
+        "predicted_kw": 22.317932240537235,
+        "baseline_kw": 23.67
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-21",
+        "actual_kw": 24.56,
+        "predicted_kw": 22.941403124098116,
+        "baseline_kw": 23.72
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-22",
+        "actual_kw": 24.99,
+        "predicted_kw": 23.45920306998557,
+        "baseline_kw": 24.56
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-23",
+        "actual_kw": 24.209999999999997,
+        "predicted_kw": 24.782443109668115,
+        "baseline_kw": 24.99
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-24",
+        "actual_kw": 25.139999999999997,
+        "predicted_kw": 23.444539188311698,
+        "baseline_kw": 24.209999999999997
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-25",
+        "actual_kw": 25.700000000000006,
+        "predicted_kw": 24.12230922799423,
+        "baseline_kw": 25.139999999999997
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-26",
+        "actual_kw": 24.71,
+        "predicted_kw": 24.31460027777778,
+        "baseline_kw": 25.700000000000006
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-27",
+        "actual_kw": 24.70000000000001,
+        "predicted_kw": 23.746701800144297,
+        "baseline_kw": 24.71
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-28",
+        "actual_kw": 24.29,
+        "predicted_kw": 24.047160461760473,
+        "baseline_kw": 24.70000000000001
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-29",
+        "actual_kw": 24.970000000000002,
+        "predicted_kw": 24.167585230880235,
+        "baseline_kw": 24.29
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-30",
+        "actual_kw": 24.599999999999998,
+        "predicted_kw": 24.862664213564216,
+        "baseline_kw": 24.970000000000002
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-10-31",
+        "actual_kw": 26.11,
+        "predicted_kw": 24.021240292207793,
+        "baseline_kw": 24.599999999999998
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-01",
+        "actual_kw": 29.379999999999995,
+        "predicted_kw": 24.823105299422796,
+        "baseline_kw": 26.11
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-02",
+        "actual_kw": 26.45,
+        "predicted_kw": 28.30998145021645,
+        "baseline_kw": 29.379999999999995
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-03",
+        "actual_kw": 27.15,
+        "predicted_kw": 24.959315966810973,
+        "baseline_kw": 26.45
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-04",
+        "actual_kw": 27.76,
+        "predicted_kw": 25.07943412337662,
+        "baseline_kw": 27.15
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-05",
+        "actual_kw": 26.17,
+        "predicted_kw": 25.93947784271284,
+        "baseline_kw": 27.76
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-06",
+        "actual_kw": 28.56,
+        "predicted_kw": 24.58208732323232,
+        "baseline_kw": 26.17
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-07",
+        "actual_kw": 27.009999999999994,
+        "predicted_kw": 26.778573048340544,
+        "baseline_kw": 28.56
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-08",
+        "actual_kw": 28.150000000000002,
+        "predicted_kw": 27.221337373737367,
+        "baseline_kw": 27.009999999999994
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-09",
+        "actual_kw": 28.09,
+        "predicted_kw": 26.518700328282815,
+        "baseline_kw": 28.150000000000002
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-10",
+        "actual_kw": 28.830000000000005,
+        "predicted_kw": 27.566677373737356,
+        "baseline_kw": 28.09
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-11",
+        "actual_kw": 27.399999999999995,
+        "predicted_kw": 27.4365218253968,
+        "baseline_kw": 28.830000000000005
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-12",
+        "actual_kw": 28.54,
+        "predicted_kw": 25.719047489177488,
+        "baseline_kw": 27.399999999999995
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-13",
+        "actual_kw": 31.43,
+        "predicted_kw": 26.962879372294374,
+        "baseline_kw": 28.54
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-14",
+        "actual_kw": 28.91,
+        "predicted_kw": 29.52773425685427,
+        "baseline_kw": 31.43
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-15",
+        "actual_kw": 29.06,
+        "predicted_kw": 28.38686375541125,
+        "baseline_kw": 28.91
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-16",
+        "actual_kw": 29.520000000000003,
+        "predicted_kw": 28.330152564935055,
+        "baseline_kw": 29.06
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-17",
+        "actual_kw": 28.909999999999997,
+        "predicted_kw": 29.902946948051934,
+        "baseline_kw": 29.520000000000003
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-18",
+        "actual_kw": 29.080000000000002,
+        "predicted_kw": 28.699160422077917,
+        "baseline_kw": 28.909999999999997
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-19",
+        "actual_kw": 32.16,
+        "predicted_kw": 28.38413582251081,
+        "baseline_kw": 29.080000000000002
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-20",
+        "actual_kw": 31.099999999999998,
+        "predicted_kw": 29.44908475274725,
+        "baseline_kw": 32.16
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-21",
+        "actual_kw": 29.440000000000005,
+        "predicted_kw": 30.06066489538239,
+        "baseline_kw": 31.099999999999998
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-22",
+        "actual_kw": 34.330000000000005,
+        "predicted_kw": 29.707191154401148,
+        "baseline_kw": 29.440000000000005
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-23",
+        "actual_kw": 32.35,
+        "predicted_kw": 32.60078480935732,
+        "baseline_kw": 34.330000000000005
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-24",
+        "actual_kw": 31.999999999999993,
+        "predicted_kw": 29.687780277777783,
+        "baseline_kw": 32.35
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-25",
+        "actual_kw": 31.54,
+        "predicted_kw": 29.441559318181827,
+        "baseline_kw": 31.999999999999993
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-26",
+        "actual_kw": 31.109999999999992,
+        "predicted_kw": 29.70511785714285,
+        "baseline_kw": 31.54
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-27",
+        "actual_kw": 35.03000000000001,
+        "predicted_kw": 30.809793284493274,
+        "baseline_kw": 31.109999999999992
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-28",
+        "actual_kw": 34.03,
+        "predicted_kw": 33.37905646381396,
+        "baseline_kw": 35.03000000000001
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-29",
+        "actual_kw": 33.77,
+        "predicted_kw": 32.49883722097346,
+        "baseline_kw": 34.03
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-11-30",
+        "actual_kw": 35.559999999999995,
+        "predicted_kw": 32.8806962956488,
+        "baseline_kw": 33.77
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-01",
+        "actual_kw": 31.199999999999996,
+        "predicted_kw": 33.425986146353644,
+        "baseline_kw": 35.559999999999995
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-02",
+        "actual_kw": 30.869999999999994,
+        "predicted_kw": 30.610789355921842,
+        "baseline_kw": 31.199999999999996
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-03",
+        "actual_kw": 37.620000000000005,
+        "predicted_kw": 30.67428161782661,
+        "baseline_kw": 30.869999999999994
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-04",
+        "actual_kw": 33.08,
+        "predicted_kw": 34.73065182178932,
+        "baseline_kw": 37.620000000000005
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-05",
+        "actual_kw": 37.09,
+        "predicted_kw": 33.89938420634921,
+        "baseline_kw": 33.08
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-06",
+        "actual_kw": 33.82,
+        "predicted_kw": 34.181350842768346,
+        "baseline_kw": 37.09
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-07",
+        "actual_kw": 35.67999999999999,
+        "predicted_kw": 35.02422047619047,
+        "baseline_kw": 33.82
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-08",
+        "actual_kw": 38.970000000000006,
+        "predicted_kw": 34.71550918470418,
+        "baseline_kw": 35.67999999999999
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-09",
+        "actual_kw": 37.17,
+        "predicted_kw": 34.634601843434346,
+        "baseline_kw": 38.970000000000006
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-10",
+        "actual_kw": 35.68,
+        "predicted_kw": 35.73630067460319,
+        "baseline_kw": 37.17
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-11",
+        "actual_kw": 38.23,
+        "predicted_kw": 33.87789966727717,
+        "baseline_kw": 35.68
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-12",
+        "actual_kw": 43.07999999999999,
+        "predicted_kw": 36.97808053030302,
+        "baseline_kw": 38.23
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-13",
+        "actual_kw": 47.93999999999999,
+        "predicted_kw": 49.04956699494951,
+        "baseline_kw": 43.07999999999999
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-14",
+        "actual_kw": 58.419999999999995,
+        "predicted_kw": 52.41057449494951,
+        "baseline_kw": 47.93999999999999
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-15",
+        "actual_kw": 53.49,
+        "predicted_kw": 56.94612767316016,
+        "baseline_kw": 58.419999999999995
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-16",
+        "actual_kw": 56.11000000000001,
+        "predicted_kw": 56.389935894660866,
+        "baseline_kw": 53.49
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-17",
+        "actual_kw": 48.67000000000001,
+        "predicted_kw": 41.17863948412699,
+        "baseline_kw": 56.11000000000001
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-18",
+        "actual_kw": 57.57,
+        "predicted_kw": 52.615930764790754,
+        "baseline_kw": 48.67000000000001
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-19",
+        "actual_kw": 62.89,
+        "predicted_kw": 62.293667911255376,
+        "baseline_kw": 57.57
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-20",
+        "actual_kw": 54.8,
+        "predicted_kw": 61.078564577922045,
+        "baseline_kw": 62.89
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-21",
+        "actual_kw": 46.289999999999985,
+        "predicted_kw": 43.85508837301588,
+        "baseline_kw": 54.8
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-22",
+        "actual_kw": 36.720000000000006,
+        "predicted_kw": 41.7347238095238,
+        "baseline_kw": 46.289999999999985
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-23",
+        "actual_kw": 42.88,
+        "predicted_kw": 36.48890515151515,
+        "baseline_kw": 36.720000000000006
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-24",
+        "actual_kw": 40.57000000000001,
+        "predicted_kw": 40.665760306637814,
+        "baseline_kw": 42.88
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-25",
+        "actual_kw": 42.49,
+        "predicted_kw": 42.61088183621935,
+        "baseline_kw": 40.57000000000001
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-26",
+        "actual_kw": 41.27,
+        "predicted_kw": 45.31331203102455,
+        "baseline_kw": 42.49
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-27",
+        "actual_kw": 43.81,
+        "predicted_kw": 43.83790363275613,
+        "baseline_kw": 41.27
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-28",
+        "actual_kw": 59.550000000000004,
+        "predicted_kw": 44.28348427489176,
+        "baseline_kw": 43.81
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-29",
+        "actual_kw": 62.35,
+        "predicted_kw": 55.86305410894657,
+        "baseline_kw": 59.550000000000004
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-30",
+        "actual_kw": 57.19,
+        "predicted_kw": 58.729035728715715,
+        "baseline_kw": 62.35
+      },
+      {
+        "zoneId": "5CBFPQBN",
+        "date": "2025-12-31",
+        "actual_kw": 44.949999999999996,
+        "predicted_kw": 43.72399722222222,
+        "baseline_kw": 57.19
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-20",
+        "actual_kw": 24.92,
+        "predicted_kw": 24.70866824675325,
+        "baseline_kw": 24.990000000000006
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-21",
+        "actual_kw": 26.03,
+        "predicted_kw": 24.75406808080808,
+        "baseline_kw": 24.92
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-22",
+        "actual_kw": 26.259999999999998,
+        "predicted_kw": 25.352981143578646,
+        "baseline_kw": 26.03
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-23",
+        "actual_kw": 24.880000000000003,
+        "predicted_kw": 24.904527012987014,
+        "baseline_kw": 26.259999999999998
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-24",
+        "actual_kw": 26.810000000000002,
+        "predicted_kw": 24.742356699134202,
+        "baseline_kw": 24.880000000000003
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-25",
+        "actual_kw": 27.470000000000002,
+        "predicted_kw": 24.972203275613268,
+        "baseline_kw": 26.810000000000002
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-26",
+        "actual_kw": 26.269999999999996,
+        "predicted_kw": 25.276085523088017,
+        "baseline_kw": 27.470000000000002
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-27",
+        "actual_kw": 25.88,
+        "predicted_kw": 24.901382936507936,
+        "baseline_kw": 26.269999999999996
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-28",
+        "actual_kw": 27.319999999999997,
+        "predicted_kw": 25.468131150793653,
+        "baseline_kw": 25.88
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-29",
+        "actual_kw": 26.58,
+        "predicted_kw": 25.828483852813847,
+        "baseline_kw": 27.319999999999997
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-30",
+        "actual_kw": 27.810000000000002,
+        "predicted_kw": 25.041217413419915,
+        "baseline_kw": 26.58
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-10-31",
+        "actual_kw": 28.270000000000003,
+        "predicted_kw": 26.861979451659444,
+        "baseline_kw": 27.810000000000002
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-01",
+        "actual_kw": 31.389999999999997,
+        "predicted_kw": 27.08227345238095,
+        "baseline_kw": 28.270000000000003
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-02",
+        "actual_kw": 27.560000000000002,
+        "predicted_kw": 29.24904390331891,
+        "baseline_kw": 31.389999999999997
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-03",
+        "actual_kw": 29.05,
+        "predicted_kw": 25.759711511544005,
+        "baseline_kw": 27.560000000000002
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-04",
+        "actual_kw": 27.900000000000002,
+        "predicted_kw": 27.710059729437216,
+        "baseline_kw": 29.05
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-05",
+        "actual_kw": 27.54,
+        "predicted_kw": 26.66291386724386,
+        "baseline_kw": 27.900000000000002
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-06",
+        "actual_kw": 30.54,
+        "predicted_kw": 27.34503006854256,
+        "baseline_kw": 27.54
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-07",
+        "actual_kw": 29.039999999999996,
+        "predicted_kw": 29.030566764069263,
+        "baseline_kw": 30.54
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-08",
+        "actual_kw": 28.850000000000005,
+        "predicted_kw": 29.09567674242424,
+        "baseline_kw": 29.039999999999996
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-09",
+        "actual_kw": 30.870000000000005,
+        "predicted_kw": 27.42354321428569,
+        "baseline_kw": 28.850000000000005
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-10",
+        "actual_kw": 29.909999999999997,
+        "predicted_kw": 30.24449227633477,
+        "baseline_kw": 30.870000000000005
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-11",
+        "actual_kw": 29.94,
+        "predicted_kw": 28.22671573232323,
+        "baseline_kw": 29.909999999999997
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-12",
+        "actual_kw": 29.95,
+        "predicted_kw": 29.099101121933604,
+        "baseline_kw": 29.94
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-13",
+        "actual_kw": 31.130000000000003,
+        "predicted_kw": 28.87650499639249,
+        "baseline_kw": 29.95
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-14",
+        "actual_kw": 30.229999999999997,
+        "predicted_kw": 29.877275883838383,
+        "baseline_kw": 31.130000000000003
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-15",
+        "actual_kw": 31.559999999999995,
+        "predicted_kw": 29.847733863636357,
+        "baseline_kw": 30.229999999999997
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-16",
+        "actual_kw": 31.12,
+        "predicted_kw": 30.878208959096455,
+        "baseline_kw": 31.559999999999995
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-17",
+        "actual_kw": 29.53,
+        "predicted_kw": 30.519475189255182,
+        "baseline_kw": 31.12
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-18",
+        "actual_kw": 30.78,
+        "predicted_kw": 30.06673361471861,
+        "baseline_kw": 29.53
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-19",
+        "actual_kw": 32.17,
+        "predicted_kw": 30.623519832112326,
+        "baseline_kw": 30.78
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-20",
+        "actual_kw": 33.43,
+        "predicted_kw": 29.568763215950707,
+        "baseline_kw": 32.17
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-21",
+        "actual_kw": 29.61,
+        "predicted_kw": 30.817996416361417,
+        "baseline_kw": 33.43
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-22",
+        "actual_kw": 35.89,
+        "predicted_kw": 30.01559083333333,
+        "baseline_kw": 29.61
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-23",
+        "actual_kw": 34.199999999999996,
+        "predicted_kw": 33.803744508547005,
+        "baseline_kw": 35.89
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-24",
+        "actual_kw": 33.24000000000001,
+        "predicted_kw": 32.47031711094461,
+        "baseline_kw": 34.199999999999996
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-25",
+        "actual_kw": 33.83,
+        "predicted_kw": 30.771181000943486,
+        "baseline_kw": 33.24000000000001
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-26",
+        "actual_kw": 34.78,
+        "predicted_kw": 32.70196790098791,
+        "baseline_kw": 33.83
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-27",
+        "actual_kw": 35.14,
+        "predicted_kw": 33.287276187423686,
+        "baseline_kw": 34.78
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-28",
+        "actual_kw": 32.50999999999999,
+        "predicted_kw": 33.37905646381396,
+        "baseline_kw": 35.14
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-29",
+        "actual_kw": 35.57,
+        "predicted_kw": 32.92661168290042,
+        "baseline_kw": 32.50999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-11-30",
+        "actual_kw": 35.97,
+        "predicted_kw": 34.19073993423242,
+        "baseline_kw": 35.57
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-01",
+        "actual_kw": 35.02,
+        "predicted_kw": 33.34037942918192,
+        "baseline_kw": 35.97
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-02",
+        "actual_kw": 32.440000000000005,
+        "predicted_kw": 33.95498408286157,
+        "baseline_kw": 35.02
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-03",
+        "actual_kw": 38.12000000000001,
+        "predicted_kw": 32.61342892496393,
+        "baseline_kw": 32.440000000000005
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-04",
+        "actual_kw": 34.8,
+        "predicted_kw": 35.22410254107004,
+        "baseline_kw": 38.12000000000001
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-05",
+        "actual_kw": 40.48,
+        "predicted_kw": 35.657432189754665,
+        "baseline_kw": 34.8
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-06",
+        "actual_kw": 34.830000000000005,
+        "predicted_kw": 35.94000826479077,
+        "baseline_kw": 40.48
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-07",
+        "actual_kw": 37.13,
+        "predicted_kw": 35.373591507936496,
+        "baseline_kw": 34.830000000000005
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-08",
+        "actual_kw": 38.53,
+        "predicted_kw": 35.005925250305246,
+        "baseline_kw": 37.13
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-09",
+        "actual_kw": 39.669999999999995,
+        "predicted_kw": 34.771300375180374,
+        "baseline_kw": 38.53
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-10",
+        "actual_kw": 36.50999999999999,
+        "predicted_kw": 41.171522402597404,
+        "baseline_kw": 39.669999999999995
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-11",
+        "actual_kw": 37.309999999999995,
+        "predicted_kw": 34.32893369047619,
+        "baseline_kw": 36.50999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-12",
+        "actual_kw": 44.65999999999999,
+        "predicted_kw": 39.464658488455996,
+        "baseline_kw": 37.309999999999995
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-13",
+        "actual_kw": 45.64,
+        "predicted_kw": 49.91757620129871,
+        "baseline_kw": 44.65999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-14",
+        "actual_kw": 55.86,
+        "predicted_kw": 52.69214893939394,
+        "baseline_kw": 45.64
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-15",
+        "actual_kw": 50.010000000000005,
+        "predicted_kw": 55.954342402597405,
+        "baseline_kw": 55.86
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-16",
+        "actual_kw": 53.29,
+        "predicted_kw": 59.40688159090909,
+        "baseline_kw": 50.010000000000005
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-17",
+        "actual_kw": 47.699999999999996,
+        "predicted_kw": 40.656124603174604,
+        "baseline_kw": 53.29
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-18",
+        "actual_kw": 54.230000000000004,
+        "predicted_kw": 51.640249653679646,
+        "baseline_kw": 47.699999999999996
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-19",
+        "actual_kw": 67.42999999999999,
+        "predicted_kw": 62.32458164141414,
+        "baseline_kw": 54.230000000000004
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-20",
+        "actual_kw": 53.07000000000001,
+        "predicted_kw": 61.31824624458871,
+        "baseline_kw": 67.42999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-21",
+        "actual_kw": 49.91,
+        "predicted_kw": 43.39209250000001,
+        "baseline_kw": 53.07000000000001
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-22",
+        "actual_kw": 39.410000000000004,
+        "predicted_kw": 41.571396388888886,
+        "baseline_kw": 49.91
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-23",
+        "actual_kw": 41.68999999999999,
+        "predicted_kw": 39.901890263347745,
+        "baseline_kw": 39.410000000000004
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-24",
+        "actual_kw": 40.949999999999996,
+        "predicted_kw": 39.92305668109669,
+        "baseline_kw": 41.68999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-25",
+        "actual_kw": 43.660000000000004,
+        "predicted_kw": 41.01799641414143,
+        "baseline_kw": 40.949999999999996
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-26",
+        "actual_kw": 43.58999999999999,
+        "predicted_kw": 45.238339668109674,
+        "baseline_kw": 43.660000000000004
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-27",
+        "actual_kw": 44.81,
+        "predicted_kw": 43.83393444444445,
+        "baseline_kw": 43.58999999999999
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-28",
+        "actual_kw": 59.61000000000001,
+        "predicted_kw": 44.046241666666674,
+        "baseline_kw": 44.81
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-29",
+        "actual_kw": 63.32,
+        "predicted_kw": 61.49969414141411,
+        "baseline_kw": 59.61000000000001
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-30",
+        "actual_kw": 58.58999999999999,
+        "predicted_kw": 58.84288691919191,
+        "baseline_kw": 63.32
+      },
+      {
+        "zoneId": "4Q6TAL5X",
+        "date": "2025-12-31",
+        "actual_kw": 44.470000000000006,
+        "predicted_kw": 43.33395341269842,
+        "baseline_kw": 58.58999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-20",
+        "actual_kw": 25.779999999999998,
+        "predicted_kw": 25.340948690476196,
+        "baseline_kw": 26.470000000000002
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-21",
+        "actual_kw": 26.570000000000004,
+        "predicted_kw": 25.444150786435785,
+        "baseline_kw": 25.779999999999998
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-22",
+        "actual_kw": 27.97,
+        "predicted_kw": 25.472222651515153,
+        "baseline_kw": 26.570000000000004
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-23",
+        "actual_kw": 25.9,
+        "predicted_kw": 26.012770288600283,
+        "baseline_kw": 27.97
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-24",
+        "actual_kw": 27.87,
+        "predicted_kw": 25.004721078643588,
+        "baseline_kw": 25.9
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-25",
+        "actual_kw": 28.159999999999993,
+        "predicted_kw": 25.849584873737363,
+        "baseline_kw": 27.87
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-26",
+        "actual_kw": 25.419999999999998,
+        "predicted_kw": 26.168878502885995,
+        "baseline_kw": 28.159999999999993
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-27",
+        "actual_kw": 26.700000000000003,
+        "predicted_kw": 24.859405725108232,
+        "baseline_kw": 25.419999999999998
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-28",
+        "actual_kw": 27.849999999999994,
+        "predicted_kw": 25.626387049062046,
+        "baseline_kw": 26.700000000000003
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-29",
+        "actual_kw": 26.78,
+        "predicted_kw": 26.745519246031726,
+        "baseline_kw": 27.849999999999994
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-30",
+        "actual_kw": 28.71,
+        "predicted_kw": 25.488316222943723,
+        "baseline_kw": 26.78
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-10-31",
+        "actual_kw": 29.22,
+        "predicted_kw": 27.489571349206354,
+        "baseline_kw": 28.71
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-01",
+        "actual_kw": 32.029999999999994,
+        "predicted_kw": 27.896828870851365,
+        "baseline_kw": 29.22
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-02",
+        "actual_kw": 28.910000000000004,
+        "predicted_kw": 29.180138823953836,
+        "baseline_kw": 32.029999999999994
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-03",
+        "actual_kw": 30.439999999999998,
+        "predicted_kw": 27.918888376623368,
+        "baseline_kw": 28.910000000000004
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-04",
+        "actual_kw": 29.979999999999997,
+        "predicted_kw": 28.564482835497834,
+        "baseline_kw": 30.439999999999998
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-05",
+        "actual_kw": 28.060000000000006,
+        "predicted_kw": 28.5712468037518,
+        "baseline_kw": 29.979999999999997
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-06",
+        "actual_kw": 30.920000000000005,
+        "predicted_kw": 27.882396017316,
+        "baseline_kw": 28.060000000000006
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-07",
+        "actual_kw": 31.560000000000002,
+        "predicted_kw": 29.365695057720064,
+        "baseline_kw": 30.920000000000005
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-08",
+        "actual_kw": 27.95,
+        "predicted_kw": 30.345310555555557,
+        "baseline_kw": 31.560000000000002
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-09",
+        "actual_kw": 31.240000000000002,
+        "predicted_kw": 27.088284642857126,
+        "baseline_kw": 27.95
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-10",
+        "actual_kw": 29.880000000000003,
+        "predicted_kw": 30.44107921162171,
+        "baseline_kw": 31.240000000000002
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-11",
+        "actual_kw": 29.79,
+        "predicted_kw": 29.234506327561334,
+        "baseline_kw": 29.880000000000003
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-12",
+        "actual_kw": 32.14000000000001,
+        "predicted_kw": 28.98974417748916,
+        "baseline_kw": 29.79
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-13",
+        "actual_kw": 32.150000000000006,
+        "predicted_kw": 29.48870658896659,
+        "baseline_kw": 32.14000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-14",
+        "actual_kw": 31.830000000000002,
+        "predicted_kw": 30.281646022588525,
+        "baseline_kw": 32.150000000000006
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-15",
+        "actual_kw": 32.68000000000001,
+        "predicted_kw": 29.13236952380954,
+        "baseline_kw": 31.830000000000002
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-16",
+        "actual_kw": 31.37,
+        "predicted_kw": 30.953520495892995,
+        "baseline_kw": 32.68000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-17",
+        "actual_kw": 30.020000000000003,
+        "predicted_kw": 30.37127007020757,
+        "baseline_kw": 31.37
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-18",
+        "actual_kw": 32.49,
+        "predicted_kw": 30.001022103174606,
+        "baseline_kw": 30.020000000000003
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-19",
+        "actual_kw": 33.24999999999999,
+        "predicted_kw": 30.86603373015873,
+        "baseline_kw": 32.49
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-20",
+        "actual_kw": 34.029999999999994,
+        "predicted_kw": 30.576474473304465,
+        "baseline_kw": 33.24999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-21",
+        "actual_kw": 30.749999999999996,
+        "predicted_kw": 32.35219331945832,
+        "baseline_kw": 34.029999999999994
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-22",
+        "actual_kw": 34.03,
+        "predicted_kw": 31.41915400793651,
+        "baseline_kw": 30.749999999999996
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-23",
+        "actual_kw": 33.5,
+        "predicted_kw": 32.414900621045625,
+        "baseline_kw": 34.03
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-24",
+        "actual_kw": 34.29,
+        "predicted_kw": 31.152634273504272,
+        "baseline_kw": 33.5
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-25",
+        "actual_kw": 35.330000000000005,
+        "predicted_kw": 33.02851753663005,
+        "baseline_kw": 34.29
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-26",
+        "actual_kw": 34.56,
+        "predicted_kw": 33.60007486568986,
+        "baseline_kw": 35.330000000000005
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-27",
+        "actual_kw": 38.23,
+        "predicted_kw": 32.9216405056055,
+        "baseline_kw": 34.56
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-28",
+        "actual_kw": 32.699999999999996,
+        "predicted_kw": 34.87814663780664,
+        "baseline_kw": 38.23
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-29",
+        "actual_kw": 34.89000000000001,
+        "predicted_kw": 32.724425889249645,
+        "baseline_kw": 32.699999999999996
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-11-30",
+        "actual_kw": 37.05000000000001,
+        "predicted_kw": 33.72025725746474,
+        "baseline_kw": 34.89000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-01",
+        "actual_kw": 34.22,
+        "predicted_kw": 33.981333378843374,
+        "baseline_kw": 37.05000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-02",
+        "actual_kw": 32.96,
+        "predicted_kw": 33.23087375957377,
+        "baseline_kw": 34.22
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-03",
+        "actual_kw": 37.089999999999996,
+        "predicted_kw": 32.94954832972584,
+        "baseline_kw": 32.96
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-04",
+        "actual_kw": 36.4,
+        "predicted_kw": 36.2838268867244,
+        "baseline_kw": 37.089999999999996
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-05",
+        "actual_kw": 40.92,
+        "predicted_kw": 36.77053966089465,
+        "baseline_kw": 36.4
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-06",
+        "actual_kw": 36.63999999999999,
+        "predicted_kw": 35.66964993145743,
+        "baseline_kw": 40.92
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-07",
+        "actual_kw": 39.00000000000001,
+        "predicted_kw": 34.964471271228774,
+        "baseline_kw": 36.63999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-08",
+        "actual_kw": 39.349999999999994,
+        "predicted_kw": 36.08334564213563,
+        "baseline_kw": 39.00000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-09",
+        "actual_kw": 39.75,
+        "predicted_kw": 35.72584120129871,
+        "baseline_kw": 39.349999999999994
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-10",
+        "actual_kw": 36.24,
+        "predicted_kw": 37.89149433621933,
+        "baseline_kw": 39.75
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-11",
+        "actual_kw": 39.349999999999994,
+        "predicted_kw": 34.70921870629371,
+        "baseline_kw": 36.24
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-12",
+        "actual_kw": 43.70000000000001,
+        "predicted_kw": 41.32704636002887,
+        "baseline_kw": 39.349999999999994
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-13",
+        "actual_kw": 46.01,
+        "predicted_kw": 50.11788108225109,
+        "baseline_kw": 43.70000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-14",
+        "actual_kw": 55.52,
+        "predicted_kw": 57.13491786075035,
+        "baseline_kw": 46.01
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-15",
+        "actual_kw": 49.17,
+        "predicted_kw": 59.61286303030304,
+        "baseline_kw": 55.52
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-16",
+        "actual_kw": 57.3,
+        "predicted_kw": 59.40688159090909,
+        "baseline_kw": 49.17
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-17",
+        "actual_kw": 47.339999999999996,
+        "predicted_kw": 41.12385448412699,
+        "baseline_kw": 57.3
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-18",
+        "actual_kw": 56.67999999999999,
+        "predicted_kw": 55.72403794011544,
+        "baseline_kw": 47.339999999999996
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-19",
+        "actual_kw": 65.63,
+        "predicted_kw": 61.83186564935064,
+        "baseline_kw": 56.67999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-20",
+        "actual_kw": 56.88999999999999,
+        "predicted_kw": 61.31824624458871,
+        "baseline_kw": 65.63
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-21",
+        "actual_kw": 47.8,
+        "predicted_kw": 43.405100833333336,
+        "baseline_kw": 56.88999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-22",
+        "actual_kw": 37.339999999999996,
+        "predicted_kw": 41.56739023809524,
+        "baseline_kw": 47.8
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-23",
+        "actual_kw": 41.76,
+        "predicted_kw": 36.763860887445894,
+        "baseline_kw": 37.339999999999996
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-24",
+        "actual_kw": 40.92999999999999,
+        "predicted_kw": 39.84667596681098,
+        "baseline_kw": 41.76
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-25",
+        "actual_kw": 43.39,
+        "predicted_kw": 42.54621516955268,
+        "baseline_kw": 40.92999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-26",
+        "actual_kw": 42.64000000000001,
+        "predicted_kw": 45.467992287157294,
+        "baseline_kw": 43.39
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-27",
+        "actual_kw": 44.06999999999999,
+        "predicted_kw": 45.52547715007216,
+        "baseline_kw": 42.64000000000001
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-28",
+        "actual_kw": 56.760000000000005,
+        "predicted_kw": 44.32859534632034,
+        "baseline_kw": 44.06999999999999
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-29",
+        "actual_kw": 62.410000000000004,
+        "predicted_kw": 56.570424347041815,
+        "baseline_kw": 56.760000000000005
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-30",
+        "actual_kw": 58.470000000000006,
+        "predicted_kw": 58.84288691919191,
+        "baseline_kw": 62.410000000000004
+      },
+      {
+        "zoneId": "TKPXGF2G",
+        "date": "2025-12-31",
+        "actual_kw": 45.14,
+        "predicted_kw": 43.33395341269842,
+        "baseline_kw": 58.470000000000006
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-20",
+        "actual_kw": 21.889999999999997,
+        "predicted_kw": 21.199475032467532,
+        "baseline_kw": 21.659999999999993
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-21",
+        "actual_kw": 21.510000000000005,
+        "predicted_kw": 21.08195303030303,
+        "baseline_kw": 21.889999999999997
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-22",
+        "actual_kw": 22.47,
+        "predicted_kw": 21.895147009379503,
+        "baseline_kw": 21.510000000000005
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-23",
+        "actual_kw": 22.259999999999998,
+        "predicted_kw": 21.746182543290036,
+        "baseline_kw": 22.47
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-24",
+        "actual_kw": 23.150000000000002,
+        "predicted_kw": 21.724217463924962,
+        "baseline_kw": 22.259999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-25",
+        "actual_kw": 23.899999999999995,
+        "predicted_kw": 21.93007277417027,
+        "baseline_kw": 23.150000000000002
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-26",
+        "actual_kw": 21.33,
+        "predicted_kw": 21.963120974303465,
+        "baseline_kw": 23.899999999999995
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-27",
+        "actual_kw": 22.13,
+        "predicted_kw": 21.345818986291484,
+        "baseline_kw": 21.33
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-28",
+        "actual_kw": 23.439999999999998,
+        "predicted_kw": 21.442947633477633,
+        "baseline_kw": 22.13
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-29",
+        "actual_kw": 23.63,
+        "predicted_kw": 22.519109026251527,
+        "baseline_kw": 23.439999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-30",
+        "actual_kw": 22.79,
+        "predicted_kw": 22.535903391330883,
+        "baseline_kw": 23.63
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-10-31",
+        "actual_kw": 24.5,
+        "predicted_kw": 22.986206088078585,
+        "baseline_kw": 22.79
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-01",
+        "actual_kw": 26.770000000000003,
+        "predicted_kw": 23.52881954545454,
+        "baseline_kw": 24.5
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-02",
+        "actual_kw": 23.689999999999994,
+        "predicted_kw": 23.5073261976912,
+        "baseline_kw": 26.770000000000003
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-03",
+        "actual_kw": 25.76,
+        "predicted_kw": 22.30820140720391,
+        "baseline_kw": 23.689999999999994
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-04",
+        "actual_kw": 25.6,
+        "predicted_kw": 24.222408878066375,
+        "baseline_kw": 25.76
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-05",
+        "actual_kw": 24.429999999999996,
+        "predicted_kw": 24.371964321789324,
+        "baseline_kw": 25.6
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-06",
+        "actual_kw": 26.390000000000008,
+        "predicted_kw": 23.120793145743143,
+        "baseline_kw": 24.429999999999996
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-07",
+        "actual_kw": 25.679999999999993,
+        "predicted_kw": 24.926455490620498,
+        "baseline_kw": 26.390000000000008
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-08",
+        "actual_kw": 24.31,
+        "predicted_kw": 26.284261410533908,
+        "baseline_kw": 25.679999999999993
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-09",
+        "actual_kw": 26.39,
+        "predicted_kw": 23.220986291486287,
+        "baseline_kw": 24.31
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-10",
+        "actual_kw": 25.419999999999998,
+        "predicted_kw": 24.786814108946604,
+        "baseline_kw": 26.39
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-11",
+        "actual_kw": 23.700000000000003,
+        "predicted_kw": 24.9694158982684,
+        "baseline_kw": 25.419999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-12",
+        "actual_kw": 27.67,
+        "predicted_kw": 23.214432550782547,
+        "baseline_kw": 23.700000000000003
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-13",
+        "actual_kw": 26.85,
+        "predicted_kw": 26.34119509018758,
+        "baseline_kw": 27.67
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-14",
+        "actual_kw": 26.610000000000003,
+        "predicted_kw": 25.004407481962474,
+        "baseline_kw": 26.85
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-15",
+        "actual_kw": 27.740000000000002,
+        "predicted_kw": 24.845167759740253,
+        "baseline_kw": 26.610000000000003
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-16",
+        "actual_kw": 26.72,
+        "predicted_kw": 27.16189170274169,
+        "baseline_kw": 27.740000000000002
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-17",
+        "actual_kw": 25.66,
+        "predicted_kw": 25.032327799422788,
+        "baseline_kw": 26.72
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-18",
+        "actual_kw": 28.229999999999997,
+        "predicted_kw": 24.136091111111103,
+        "baseline_kw": 25.66
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-19",
+        "actual_kw": 28.259999999999998,
+        "predicted_kw": 27.555059516594508,
+        "baseline_kw": 28.229999999999997
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-20",
+        "actual_kw": 28.529999999999998,
+        "predicted_kw": 27.031182543290043,
+        "baseline_kw": 28.259999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-21",
+        "actual_kw": 27.23,
+        "predicted_kw": 28.25071102813853,
+        "baseline_kw": 28.529999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-22",
+        "actual_kw": 30.45,
+        "predicted_kw": 27.32442186507936,
+        "baseline_kw": 27.23
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-23",
+        "actual_kw": 28.080000000000002,
+        "predicted_kw": 30.181131154401143,
+        "baseline_kw": 30.45
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-24",
+        "actual_kw": 27.939999999999994,
+        "predicted_kw": 26.608679184704172,
+        "baseline_kw": 28.080000000000002
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-25",
+        "actual_kw": 29.34,
+        "predicted_kw": 28.228098517316013,
+        "baseline_kw": 27.939999999999994
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-26",
+        "actual_kw": 29.37,
+        "predicted_kw": 28.7664019011544,
+        "baseline_kw": 29.34
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-27",
+        "actual_kw": 30.38,
+        "predicted_kw": 28.94651544011543,
+        "baseline_kw": 29.37
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-28",
+        "actual_kw": 28.94,
+        "predicted_kw": 29.882346785714276,
+        "baseline_kw": 30.38
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-29",
+        "actual_kw": 30.04,
+        "predicted_kw": 29.53971358585859,
+        "baseline_kw": 28.94
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-11-30",
+        "actual_kw": 32.58,
+        "predicted_kw": 29.133749603174593,
+        "baseline_kw": 30.04
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-01",
+        "actual_kw": 29.480000000000004,
+        "predicted_kw": 29.060821507936517,
+        "baseline_kw": 32.58
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-02",
+        "actual_kw": 27.83,
+        "predicted_kw": 29.651119170274164,
+        "baseline_kw": 29.480000000000004
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-03",
+        "actual_kw": 32.25,
+        "predicted_kw": 28.461645501442998,
+        "baseline_kw": 27.83
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-04",
+        "actual_kw": 30.20999999999999,
+        "predicted_kw": 29.57936847569097,
+        "baseline_kw": 32.25
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-05",
+        "actual_kw": 33.26,
+        "predicted_kw": 29.051274657287163,
+        "baseline_kw": 30.20999999999999
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-06",
+        "actual_kw": 30.529999999999998,
+        "predicted_kw": 30.40290238983238,
+        "baseline_kw": 33.26
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-07",
+        "actual_kw": 32.47,
+        "predicted_kw": 30.48824297619046,
+        "baseline_kw": 30.529999999999998
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-08",
+        "actual_kw": 32.489999999999995,
+        "predicted_kw": 28.484595905483417,
+        "baseline_kw": 32.47
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-09",
+        "actual_kw": 33.71,
+        "predicted_kw": 29.13932517676768,
+        "baseline_kw": 32.489999999999995
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-10",
+        "actual_kw": 31.480000000000004,
+        "predicted_kw": 32.749767107337114,
+        "baseline_kw": 33.71
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-11",
+        "actual_kw": 34.0,
+        "predicted_kw": 29.751772743367745,
+        "baseline_kw": 31.480000000000004
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-12",
+        "actual_kw": 37.41999999999999,
+        "predicted_kw": 34.60498699134199,
+        "baseline_kw": 34.0
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-13",
+        "actual_kw": 40.53999999999999,
+        "predicted_kw": 41.15342507215008,
+        "baseline_kw": 37.41999999999999
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-14",
+        "actual_kw": 48.36,
+        "predicted_kw": 47.99352540043291,
+        "baseline_kw": 40.53999999999999
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-15",
+        "actual_kw": 43.22,
+        "predicted_kw": 46.67311782106783,
+        "baseline_kw": 48.36
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-16",
+        "actual_kw": 48.559999999999995,
+        "predicted_kw": 50.97478429653682,
+        "baseline_kw": 43.22
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-17",
+        "actual_kw": 41.94,
+        "predicted_kw": 38.990103015873004,
+        "baseline_kw": 48.559999999999995
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-18",
+        "actual_kw": 48.24,
+        "predicted_kw": 48.93382532828284,
+        "baseline_kw": 41.94
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-19",
+        "actual_kw": 55.9,
+        "predicted_kw": 53.2467781060606,
+        "baseline_kw": 48.24
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-20",
+        "actual_kw": 47.620000000000005,
+        "predicted_kw": 63.07555366522366,
+        "baseline_kw": 55.9
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-21",
+        "actual_kw": 39.739999999999995,
+        "predicted_kw": 41.2274403860029,
+        "baseline_kw": 47.620000000000005
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-22",
+        "actual_kw": 33.21,
+        "predicted_kw": 40.66841175685427,
+        "baseline_kw": 39.739999999999995
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-23",
+        "actual_kw": 34.69,
+        "predicted_kw": 32.685633041125534,
+        "baseline_kw": 33.21
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-24",
+        "actual_kw": 34.85,
+        "predicted_kw": 34.97280904401153,
+        "baseline_kw": 34.69
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-25",
+        "actual_kw": 37.419999999999995,
+        "predicted_kw": 35.42178148629147,
+        "baseline_kw": 34.85
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-26",
+        "actual_kw": 34.91,
+        "predicted_kw": 39.61916896464647,
+        "baseline_kw": 37.419999999999995
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-27",
+        "actual_kw": 36.459999999999994,
+        "predicted_kw": 38.78593432539682,
+        "baseline_kw": 34.91
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-28",
+        "actual_kw": 49.55,
+        "predicted_kw": 39.53458288600289,
+        "baseline_kw": 36.459999999999994
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-29",
+        "actual_kw": 50.290000000000006,
+        "predicted_kw": 51.245879772727285,
+        "baseline_kw": 49.55
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-30",
+        "actual_kw": 50.56,
+        "predicted_kw": 50.12236667748918,
+        "baseline_kw": 50.290000000000006
+      },
+      {
+        "zoneId": "YYSC7H2F",
+        "date": "2025-12-31",
+        "actual_kw": 37.4,
+        "predicted_kw": 38.39032503968254,
+        "baseline_kw": 50.56
+      }
+    ]
+  },
+  "limitations": [
+    "Datos sintéticos; no demuestra desempeño en campo.",
+    "Temperatura futura observada usada como escenario idealizado.",
+    "Pocos casos positivos; métricas inestables.",
+    "Entrenamiento y prueba de pronóstico comparten zonas."
+  ]
+}

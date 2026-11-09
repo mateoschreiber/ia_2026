@@ -1,5 +1,7 @@
 # Guía de defensa
 
+> Documento histórico del prototipo estático. Para el sistema actual, consultar [DEFENSA_NUEVA.md](DEFENSA_NUEVA.md).
+
 Guía para presentar y defender el proyecto. Incluye guion, demo, preguntas
 frecuentes con respuestas y los números clave.
 

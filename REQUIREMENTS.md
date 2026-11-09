@@ -1,4 +1,7 @@
-# Requisitos del proyecto
+# Requisitos del prototipo histórico
+
+> Este documento describe la versión estática anterior. Para ejecutar y probar
+> el sistema actual con API y Docker, consultar [README.md](README.md).
 
 Aplicación **100 % estática** (HTML + CSS + JavaScript) para el Proyecto Final
 de Inteligencia Artificial. Este documento describe qué se necesita para

@@ -1,0 +1,10 @@
+services:
+  energia:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - energia_data:/app/runtime
+    restart: unless-stopped
+volumes:
+  energia_data:

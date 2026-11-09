@@ -1,0 +1,97 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{url}
+\usepackage{flushend}
+\begin{document}
+\title{Predicción de picos y detección de anomalías en una red eléctrica sintética}
+\author{\IEEEauthorblockN{Mateo Schreiber y Santiago}
+\IEEEauthorblockA{Ingeniería Informática -- Inteligencia Aplicada\\
+Institución y apellido de Santiago: completar antes de entregar}}
+\maketitle
+\begin{abstract}
+Se presenta un prototipo de supervisión energética para explorar picos diarios y patrones anómalos de consumo en un contexto paraguayo. Se generó una red sintética de 100 medidores con lecturas horarias de un año. Para anomalías se compararon Isolation Forest y distancia estandarizada con particiones por medidor; para pronóstico se compararon regresión polinómica y bosque aleatorio mediante separación temporal. En la prueba reservada el detector seleccionado obtuvo F1 de 0,50, con un único caso positivo. El bosque aleatorio alcanzó MAE de 2,36 kW y RMSE de 3,35 kW, frente a 2,79 y 4,12 kW para el pico del día anterior. Una API y un dashboard permiten explorar escenarios de temperatura. Los resultados son preliminares: los datos son simulados y la temperatura futura se considera conocida.
+\end{abstract}
+\begin{IEEEkeywords}
+inteligencia aplicada, demanda eléctrica, anomalías, datos sintéticos, Paraguay
+\end{IEEEkeywords}
+\section{Introducción y contexto}
+La planificación de demanda y el análisis de pérdidas no técnicas son tareas relevantes en sistemas eléctricos. En Paraguay, el contexto de la Administración Nacional de Electricidad (ANDE) motiva una herramienta académica capaz de explorar picos de consumo y priorizar revisiones. Este trabajo no utiliza datos de ANDE ni pretende representar sus indicadores reales.
+
+El uso de modelos de anomalía permite ordenar registros cuyo comportamiento difiere del patrón aprendido. Isolation Forest propone aislar observaciones mediante particiones aleatorias \cite{liu}. La detección no supervisada puede orientar inspecciones sin demostrar por sí misma la causa de una diferencia. En pronóstico, la separación cronológica es necesaria para evitar que observaciones futuras influyan en decisiones anteriores \cite{crossvalidation}.
+
+Se plantean dos preguntas: si variables horarias agregadas permiten identificar patrones sintéticos de pérdida y si el pico diario zonal puede estimarse mejor que una referencia de persistencia. Se implementa además un sistema completo con una API REST y una interfaz reproducible mediante contenedores.
+\section{Metodología y arquitectura del sistema}
+\subsection{Datos y preparación}
+El conjunto se construyó con el generador del repositorio: cinco zonas, veinte transformadores y cien medidores con 8.760 lecturas horarias de 2025. Contiene siete medidores con arquetipos sintéticos de anomalía o falla, además de temperatura y energía suministrada simuladas. Los perfiles y etiquetas responden a hipótesis del generador, no a observaciones de campo. Cada lectura registra energía en kWh durante una hora; su valor equivale numéricamente a la potencia media de esa hora en kW.
+
+Para anomalías se calculan por medidor media, desviación estándar, percentil 95, proporción de ceros, medias nocturna y vespertina y coeficiente de variación. No se incluyen etiquetas ni metadatos del generador en las variables. Se usa una partición estratificada por medidor de 60/20/20 para entrenamiento, validación y prueba, con semilla 42. Las etiquetas intervienen en la partición, selección y evaluación, no en el cálculo de características. La estandarización se ajusta exclusivamente con entrenamiento \cite{pitfalls}.
+\subsection{Modelos y evaluación}
+Se comparan Isolation Forest y una distancia euclidiana al centro de las variables estandarizadas. Ambos se ajustan con los medidores de entrenamiento, que pueden incluir anomalías; el umbral corresponde al percentil 90 de sus puntuaciones. La elección se realiza por F1 en validación. La prueba reservada se evalúa con precisión, recall, F1, matriz de confusión y precisión entre los diez mayores scores. El score no es una probabilidad calibrada.
+
+Para cada zona se suman las lecturas y se obtiene el máximo de cada día. Como variables predictoras se usan la temperatura máxima del día objetivo, el pico anterior y el de siete días antes. La temperatura representa un escenario idealizado: en prueba se usa la observación del mismo día, como si se conociera anticipadamente. Los días se dividen cronológicamente en 60/20/20; los rezagos utilizados al evaluar ya ocurrieron. Se comparan una regresión Ridge con términos polinómicos de segundo grado y un bosque aleatorio, seleccionados por MAE de validación. La referencia usa el pico del día anterior.
+\subsection{Arquitectura y operación}
+El pipeline Python guarda el modelo, la escala, umbral y métricas juntos. FastAPI expone operaciones para cargar y validar datos, ejecutar inferencia, consultar resultados y obtener el informe experimental. Una interfaz web permite definir la temperatura del día siguiente y el factor de potencia, consultar alertas y editar registros. Tras modificar el conjunto se invalidan resultados anteriores; la edición no reentrena los modelos.
+
+El despliegue usa Docker Compose y un volumen persistente. Las alertas de carga comparan el pico en kW con la capacidad en kVA multiplicada por un factor de potencia supuesto. El balance se calcula solo si existe energía suministrada positiva y debe interpretarse con cuidado cuando los periodos no coinciden. Las alertas indican revisión, no confirmación de fraude.
+\section{Resultados y discusión}
+La selección por F1 de validación favoreció la distancia estandarizada (0,80) frente a Isolation Forest (0,50). La validación contiene solamente dos positivos. La Tabla~\ref{tab:anom} resume la prueba de 20 medidores, de los cuales solo uno es positivo; la matriz se muestra en orden TN, FP, FN, TP.
+\begin{table}[h]
+\caption{Detección: prueba reservada}
+\label{tab:anom}
+\centering
+\begin{tabular}{lr}
+\hline
+Indicador & Resultado\\
+\hline
+Precisión & 0,33\\
+Recall & 1,00\\
+F1 & 0,50\\
+Precisión entre los 10 primeros & 0,10\\
+TN / FP / FN / TP & 17 / 2 / 0 / 1\\
+\hline
+\end{tabular}
+\end{table}
+
+En validación temporal, el MAE del bosque aleatorio fue 0,62 kW frente a 0,78 kW de Ridge polinómico. La Tabla~\ref{tab:forecast} compara el modelo seleccionado con la referencia en el periodo de prueba. Estas cifras dependen de la simulación y de conocer la temperatura del día objetivo.
+\begin{table}[h]
+\caption{Pronóstico en prueba (kW)}
+\label{tab:forecast}
+\centering
+\begin{tabular}{lrr}
+\hline
+Método & MAE & RMSE\\
+\hline
+Bosque aleatorio & 2,36 & 3,35\\
+Pico del día anterior & 2,79 & 4,12\\
+\hline
+\end{tabular}
+\end{table}
+
+El mejor resultado relativo frente a la referencia no demuestra superioridad en una red real. El generador define los patrones que el experimento intenta detectar y los conjuntos comparten la misma distribución sintética. La partición por medidor impide repetir el mismo medidor entre conjuntos, pero no asegura todos los arquetipos en cada uno. La presencia de un solo positivo hace que el recall de prueba cambie drásticamente ante un único error. Además, el pronóstico evalúa días posteriores de zonas conocidas y no generaliza necesariamente a otras zonas.
+
+Los tiempos de inferencia se registran en el archivo de resultados, junto con predicciones individuales; dependen del equipo y la carga y no son una garantía operacional. Las pruebas automatizadas comprueban validación, separación de medidores, escenarios, persistencia de una edición e independencia de etiquetas durante inferencia. No constituyen una validación de campo ni una evaluación de seguridad para despliegue público.
+La distinción entre pérdida técnica, pérdida no técnica y comportamiento irregular es central: un consumo atípico también puede responder a cambios de actividad, instalaciones defectuosas o errores de medición. No se dispone de evidencia que permita distinguir esas causas en una observación real. Por ello se usa el término señal anómala y se propone la inspección como paso posterior. El objetivo del pronóstico es el máximo de promedios horarios por zona para el siguiente día y no la potencia instantánea máxima de la red.
+
+Cada serie es una unidad de partición. El generador asigna a siete medidores un arquetipo de manipulación o falla y los restantes se consideran no anómalos según las reglas sintéticas. La clase positiva no equivale necesariamente a una conducta fraudulenta. Los registros de prueba no participan en el ajuste de la escala, el umbral o la selección del detector. La estratificación estabiliza la proporción de clases, aunque no garantiza que cada arquetipo aparezca en cada subconjunto.
+
+El primer día evaluable es el octavo, porque se necesita el pico de siete días atrás. En cada fecha, las observaciones de zonas diferentes permanecen en el mismo bloque temporal; no se mezclan fechas futuras de una zona con fechas anteriores de otra durante el ajuste. Los cinco sistemas zonales son conocidos y comparten parámetros del modelo, por lo que el ensayo no mide desempeño en una zona no vista. MAE expresa el error absoluto medio y RMSE penaliza más los errores grandes. Ambas métricas se reportan en kW sobre todos los ejemplos de prueba.
+
+La referencia de persistencia permite determinar si un procedimiento más complejo mejora una regla sencilla en la muestra. La selección usa solo el MAE de validación; las cifras de prueba no se usan para elegir entre candidatos. Al tratarse de una única partición temporal y un solo año sintético, los resultados pueden variar con la estación elegida para prueba. Una evaluación más robusta requeriría varios años o generaciones independientes y múltiples cortes temporales.
+
+La base importada debe mantener un intervalo horario, un inicio común para clima y lecturas, relaciones válidas entre zonas, transformadores y medidores, y valores finitos no negativos. El servicio limita el tamaño de los archivos y guarda el conjunto de trabajo en un volumen persistente. La restauración vuelve al ejemplo original. Los modelos se entrenan con la muestra de referencia y no se actualizan automáticamente al importar datos: usar una red con otra distribución puede degradar la inferencia. El servicio se configura para acceso local, sin un mecanismo de autenticación para uso público.
+
+En la matriz de confusión, dos señales positivas corresponden a registros etiquetados como normales y una coincide con la etiqueta positiva. La precisión de un tercio muestra el costo potencial de inspecciones sin confirmación, mientras que el recall de uno sobre uno describe exclusivamente el caso positivo disponible. No debe extrapolarse el mismo valor a clientes o sistemas reales. La precisión entre los diez primeros es 0,10 porque el único caso positivo de la prueba aparece en ese grupo; su interpretación depende del tamaño de la lista y de la prevalencia simulada.
+
+Para el pronóstico, la referencia y el bosque reciben la misma secuencia temporal de evaluación. El MAE disminuyó aproximadamente 0,42 kW y el RMSE aproximadamente 0,77 kW con respecto a persistencia. Sin embargo, la temperatura observada del día objetivo introduce información que en una operación real tendría que obtenerse de un pronóstico externo. No se ha cuantificado cuánto crecería el error con un pronóstico meteorológico imperfecto ni bajo interrupciones, cambios de clientes o eventos extremos no representados.
+\section{Conclusiones y trabajo futuro}
+Se integraron datos emulados, análisis, modelos entrenados, API e interfaz para demostrar un flujo de supervisión de extremo a extremo. La comparación con una referencia sencilla y la separación temporal aportan evidencia experimental acotada. Los resultados deben presentarse como una prueba de concepto, especialmente por la escasez de positivos y la temperatura idealizada.
+
+Como trabajo futuro se propone ampliar las semillas y arquetipos, evaluar con mediciones reales autorizadas, estudiar incertidumbre y calibración, incorporar pronósticos meteorológicos disponibles antes del día objetivo y probar generalización entre zonas. También conviene evaluar ventanas temporales múltiples y verificar la relación entre potencia activa, aparente y pérdidas con información técnica medida.
+\begin{thebibliography}{00}
+\bibitem{liu} F. T. Liu, K. M. Ting y Z.-H. Zhou, ''Isolation Forest,'' en \emph{2008 Eighth IEEE International Conference on Data Mining}, 2008, doi: 10.1109/ICDM.2008.17.
+\bibitem{pitfalls} scikit-learn, ''Common pitfalls and recommended practices.'' [En línea]. Disponible: \url{https://scikit-learn.org/stable/common_pitfalls.html}
+\bibitem{crossvalidation} scikit-learn, ''Cross-validation: evaluating estimator performance.'' [En línea]. Disponible: \url{https://scikit-learn.org/stable/modules/cross_validation.html}
+\end{thebibliography}
+\end{document}

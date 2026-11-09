@@ -9,3 +9,6 @@ desktop.ini
 # Python (solo el generador de desarrollo)
 __pycache__/
 *.pyc
+.venv/
+runtime/
+.pytest_cache/

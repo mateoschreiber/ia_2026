@@ -1,192 +1,57 @@
-# Supervisión Energética — Proyecto Final IA
+# Observatorio energético — Proyecto 11 de IA aplicada
 
-Aplicación **100 % estática** (HTML + CSS + JavaScript) para el Proyecto 11:
-*Predicción de picos de consumo eléctrico y detección de pérdidas no técnicas*
-sobre datos **emulados** con fines educativos (contexto ANDE).
+Prototipo académico de predicción del pico eléctrico diario por zona y detección de señales anómalas en medidores. **Todos los datos son sintéticos**; no hay conexión con ANDE y una alerta no demuestra fraude ni sustituye una inspección.
 
-- Sin servidor, sin build, sin base de datos externa.
-- Una única base de datos: `data/database.json`.
-- Dashboard + pantalla CRUD para editar los datos.
-- Chart.js vendoreado para funcionar sin internet.
-- Requisitos y entorno de desarrollo: ver [REQUIREMENTS.md](REQUIREMENTS.md).
-- Documentación técnica detallada: ver [docs/DOCUMENTACION.md](docs/DOCUMENTACION.md).
-- Guía de defensa (guion, demo, preguntas): ver [docs/DEFENSA.md](docs/DEFENSA.md).
+## Inicio con Docker
 
----
-
-## Cómo abrir
-
-1. Abrir `index.html` con doble clic (Chrome/Edge recomendado).
-2. En la pantalla de inicio, pulsar **“Abrir base de datos”** y seleccionar
-   `data/database.json` (o arrastrarlo y soltarlo sobre la ventana).
-3. A partir de ahí los datos quedan cacheados en **IndexedDB** y la app
-   recuerda el estado al reabrirla.
-4. **Guardar** escribe de vuelta al `.json` en Chrome/Edge (File System Access
-   API). En otros navegadores descarga una copia que se puede volver a cargar.
-
-> **¿Por qué hay que abrir el archivo la primera vez?**
-> El navegador bloquea `fetch()` de archivos locales cuando la página se abre
-> con `file://` (política CORS). Para usar un `.json` real como base de datos
-> sin servidor, el archivo se abre con el selector de archivos. La caché
-> (IndexedDB) solo acelera el reabrir; la fuente canónica sigue siendo el `.json`.
-
-> **¿Por qué IndexedDB y no `localStorage`?**
-> El dataset anual (100 medidores × 8760 h) ocupa ~12 MB, por encima del límite
-> de `localStorage` (~5 MB). IndexedDB admite volúmenes mayores; se usa como
-> caché y `localStorage` queda solo como respaldo para datasets pequeños.
-
-> **¿Por qué scripts clásicos y no ES Modules?**
-> Los `import` de ES Modules también están bloqueados bajo `file://`. Por eso
-> todo el código usa scripts clásicos con un namespace global `App`.
-
----
-
-## Estructura
-
-```
-Proyecto final IA/
-├─ index.html
-├─ README.md
-├─ REQUIREMENTS.md          # requisitos (runtime, Python, Node, gh)
-├─ docs/
-│  ├─ DOCUMENTACION.md      # documentación técnica detallada
-│  └─ DEFENSA.md            # guion, demo y preguntas frecuentes
-├─ data/
-│  └─ database.json          # base de datos canónica (una sola)
-├─ generator/
-│  └─ generate.py            # generador de datos emulados (Python)
-├─ test/
-│  └─ run-tests.js           # pruebas del motor (Node.js)
-├─ assets/
-│  ├─ css/main.css
-│  └─ vendor/chart.umd.js    # Chart.js 4.4.1
-└─ src/
-   ├─ core/
-   │  ├─ events.js           # bus de eventos
-   │  ├─ schema.js           # definición de entidades y campos
-   │  ├─ validator.js        # validación de dataset y entidades
-   │  ├─ store.js            # estado + caché IndexedDB
-   │  ├─ fileStore.js        # abrir/guardar el .json
-   │  └─ repository.js       # CRUD genérico
-   ├─ analysis/
-   │  ├─ rng.js              # PRNG determinista (mulberry32)
-   │  ├─ features.js         # extracción de features por medidor
-   │  ├─ balance.js          # balance energético
-   │  ├─ anomaly.js          # estadística (z-score, IQR)
-   │  ├─ isolationForest.js  # Isolation Forest
-   │  ├─ autoencoder.js      # autoencoder (in-browser)
-   │  ├─ forecast.js         # pronóstico de picos por zona
-   │  ├─ engine.js           # orquestador (detections/forecast/alerts)
-   │  └─ metrics.js          # evaluación (precision@k, confusión, curva)
-   ├─ ui/
-   │  ├─ dom.js, i18n.js, router.js
-   │  ├─ components/         # kpi, chart, table, form
-   │  └─ views/              # home, dashboard, crud, metrics
-   └─ main.js
-```
-
----
-
-## Formato de la base de datos
-
-```jsonc
-{
-  "schemaVersion": 1,
-  "meta": { "generatedAt": "...", "seed": 42, "intervalH": 1 },
-  "zones":        [{ "id": "z001", "name": "Centro", "description": null }],
-  "transformers": [{ "id": "t001", "zoneId": "z001", "capacityKva": 400 }],
-  "meters":       [{ "id": "m001", "transformerId": "t001", "customerType": "residencial", "active": true }],
-  "readings":     [{ "meterId": "m001", "start": "2025-01-01T00:00:00", "intervalH": 1, "kwh": [/* 8760 */] }],
-  "weather":      { "start": "2025-01-01T00:00:00", "intervalH": 1, "tempC": [/* 8760 */], "humidity": [/* 8760 */] },
-  "labels":       [{ "id": "l001", "meterId": "m001", "isFraud": false, "archetype": null }],
-  "detections":   [],
-  "forecast":     [],
-  "alerts":       []
-}
-```
-
-Las lecturas se guardan **compactadas** (un vector de valores por medidor) para
-que 100 medidores × 8760 horas quepan en un archivo manejable (~5–8 MB).
-
----
-
-## Fases del proyecto
-
-| Fase | Contenido | Estado |
-|---|---|---|
-| F0 | Esqueleto, carga/guardado del JSON, navegación, estilos | **Hecho** |
-| F1 | Generador de datos emulados (100 medidores, 1 año) | **Hecho** |
-| F2 | CRUD completo por entidad | **Hecho** |
-| F3 | Motor de análisis (Isolation Forest, pronóstico, balance) | **Hecho** |
-| F4 | Dashboard completo | **Hecho** |
-| F5 | Métricas del modelo y pulido | **Hecho** |
-| F6 | Documentación y guía de defensa | **Hecho** |
-
----
-
-## Generador de datos (F1)
-
-El dataset se regenera con un script de desarrollo determinista:
+Requiere Docker Desktop con Docker Compose iniciado. Desde esta carpeta:
 
 ```sh
-python3 generator/generate.py
+docker compose up --build
 ```
 
-Produce `data/database.json` con:
-- 5 zonas, 20 transformadores, 100 medidores (75 % residencial, 20 % comercial, 5 % industrial).
-- 8760 horas de lecturas por medidor + clima horario (temperatura, humedad).
-- Consumo = base × perfil horario × factor estacional × **respuesta térmica** (no lineal, para picos de calor) × ruido AR(1).
-- **IDs aleatorios alfanuméricos** (sin prefijo secuencial), como los `CONS_NO`
-  de los datasets reales (SGCC), para no filtrar estructura artificial en el análisis.
-- 7 medidores con pérdida no técnica (`isFraud: true`), un arquetipo cada uno:
-  `bypass_total`, `bypass_parcial`, `inversion_fase`, `manipulacion_nocturna`,
-  `conexion_directa`, `fraude_intermitente`, `medidor_defectuoso`.
-- `transformers[].energySuppliedKwh` = consumo **real** total + pérdidas técnicas,
-  de modo que el balance energético (suministrado − facturado) revele la pérdida no técnica.
+Abrir <http://localhost:8000>. La primera ejecución entrena los modelos con el conjunto de ejemplo; puede tardar. El JSON, los modelos y las métricas se guardan en el volumen `energia_data`, que sobrevive a reinicios. Para detener: `docker compose down` (no elimina el volumen). En la interfaz, **Restaurar datos de ejemplo** sustituye el JSON editable; no elimina los modelos ni el volumen. Para extraer los datos usar **Exportar JSON**.
 
-Las **etiquetas** (`labels`) son el *ground truth* para evaluar los modelos (F3/F5).
+El servicio escucha únicamente en la computadora local. Es una demostración sin cuentas ni autenticación: no exponer el puerto a Internet ni ingresar información personal o datos operativos sensibles. El volumen de modelos es confiable: nunca sustituir archivos `joblib` por otros de origen desconocido.
 
----
+## Uso
 
-## Motor de análisis (F3)
+1. Elegir una temperatura máxima hipotética para el día siguiente y un factor de potencia (por defecto 0,90).
+2. Ejecutar el análisis. Consultar picos por zona, orden de inspección y alertas de anomalía, balance y carga. El score es una puntuación, no una probabilidad.
+3. En Gestión se puede importar/exportar el JSON original o modificar registros en formato JSON. El servidor valida el conjunto completo. Cualquier cambio invalida el análisis previo y obliga a ejecutarlo otra vez. Los modelos siguen siendo los entrenados con los datos de ejemplo; la edición no los reentrena.
+4. `/docs` muestra la documentación interactiva de la API y necesita conexión para cargar Swagger UI desde su CDN; el dashboard y la API funcionan localmente. El esquema de la API también está disponible sin conexión en `/openapi.json`. `GET /api/metrics` entrega el experimento de referencia, no una evaluación del archivo importado.
 
-`src/analysis/` implementa la detección de anomalías y el pronóstico, todo en
-JavaScript puro (sin servidor). Al cargar la base de datos y al editarla por
-CRUD, el motor se **recalcula automáticamente** y escribe los resultados en
-`dataset.detections`, `dataset.forecast` y `dataset.alerts`.
+Las series importadas deben estar sincronizadas: un registro por medidor, igual fecha de inicio, intervalo de una hora y entre 14 y 366 días completos. Temperaturas en °C; energía en kWh por intervalo de una hora, equivalente numéricamente a potencia media en kW durante ese intervalo. El balance requiere energía suministrada positiva. Las alertas de carga comparan kW con `kVA × factor de potencia` supuesto, no una medición de potencia aparente.
 
-| Módulo | Método | Resultado |
-|---|---|---|
-| `features.js` | 11 features por medidor (total, media, desvío, cv, zeroRatio, ratios día/noche/tarde, pico, comparación con vecindario y con el tipo de cliente) | matriz de features estandarizada |
-| `isolationForest.js` | Isolation Forest (Liu 2008), 100 árboles | score de anomalía por medidor |
-| `autoencoder.js` | Autoencoder de 1 capa oculta entrenado in-browser (gradiente descendente, determinista) | error de reconstrucción como score |
-| `forecast.js` | Modelo aditivo de pico vs temperatura + percentil 95 (OLS) | pico pronosticado por zona |
-| `engine.js` | Combina scores (IF + autoencoder + estadístico), umbral por percentil 90 | detections, forecast, alerts |
+## Experimento y pruebas
 
-**Alertas generadas:** sobrecarga de transformadores (carga pico vs capacidad),
-pérdidas por balance energético (suministrado − facturado) y medidores con alta
-probabilidad de pérdida no técnica.
+Para desarrollo fuera del contenedor, con Python 3.12:
 
-> **Interpretación honesta (para F5):** con datos emulados, los arquetipos
-> "evidentes" (bypass total, inversión de fase, manipulación nocturna) se
-> detectan con score alto; los de escalado uniforme o intermitentes son
-> intrínsecamente más difíciles, como ocurre en la literatura. La vista de
-> métricas (F5) reportará `precision@k` y recall contra las etiquetas.
+```sh
+python -m venv .venv
+python -m pip install -r requirements.txt
+python -m backend.experiment
+python -m pytest -q test/test_system.py
+```
 
----
+El comando de experimento actualiza `docs/resultados_experimento.json`. El entrenamiento separa medidores estratificadamente en 60/20/20; usa etiquetas para crear la partición y elegir el modelo en validación, nunca como características. Compara Isolation Forest con distancia estandarizada; el umbral es el percentil 90 de puntuaciones de entrenamiento. El pronóstico separa cronológicamente 60/20/20 de días, compara regresión polinómica Ridge y bosque aleatorio, y evalúa contra el pico del día anterior. Las temperaturas observadas en prueba representan un **escenario idealizado**, no una previsión meteorológica real. La evaluación temporal comparte zonas y no mide generalización a zonas nuevas.
 
-## Métricas del modelo (F5)
+Para ejecutar las pruebas automatizadas dentro de Docker, desde la raíz del proyecto:
 
-`src/analysis/metrics.js` evalúa las detecciones contra las etiquetas
-(`labels`, el *ground truth* oculto en el dashboard) y `metrics.js` (vista)
-muestra:
+```sh
+docker compose run --rm --no-deps -v "./test:/app/test:ro" --entrypoint python energia -m pytest -q -p no:cacheprovider test/test_system.py
+```
 
-- **Matriz de confusión** (TP/FP/FN/TN) a partir del flag, con precision,
-  recall, F1 y accuracy.
-- **precision@k y recall@k** para k = 5, 10, 20, 30, 50.
-- **Curva de inspección**: fraudes encontrados vs medidores revisados,
-  comparada con el desempeño aleatorio esperado.
-- **Desempeño por arquetipo** de fraude (rank, score, en top 10, flag).
+Con el servicio iniciado, `python test/docker_persistence.py` comprueba la persistencia tras reiniciar y restaura el JSON original. Durante esta prueba no se deben editar datos en otra ventana. La prueba opcional `test/browser_smoke.py` utiliza Playwright para Python y Chrome instalado en Windows; también restaura la base, por lo que tampoco debe ejecutarse mientras otra persona la edita.
 
-Esto permite reportar de forma honesta el rendimiento del detector sobre los
-datos sintéticos y discutir qué tipos de fraude son más/menos detectables.
+Con semilla 42, el resultado incluido seleccionó distancia para anomalías y bosque aleatorio para pronóstico. La prueba de anomalías contiene solo un positivo de 20 medidores, por lo que F1 y recall son especialmente inestables. Ver [metodología](docs/METODOLOGIA.md) y [resultados completos](docs/resultados_experimento.json).
+
+## Organización
+
+- `backend/`: extracción de variables, experimentos, modelos y API FastAPI.
+- `web/`: interfaz local nueva.
+- `data/database.json` y `generator/generate.py`: datos emulados y generador original.
+- `docs/`: metodología, resultados, informe y defensa.
+- `src/`, `index.html`, `assets/` y `test/run-tests.js`: prototipo histórico estático; no son la interfaz ni el motor del servicio actual. Su documentación anterior describe esa versión y sus métricas no son comparables directamente con el experimento nuevo.
+
+El informe y la defensa requieren revisión de los integrantes; completar datos de autoría e institución antes de entregar.
