@@ -1,6 +1,6 @@
 # Guía de algoritmos y componentes
 
-Material de apoyo de Inteligencia Artificial Aplicada para la versión React/FastAPI/Docker. El guion de exposición está en [DEFENSA.md](DEFENSA.md) y la lista de evidencias en [ENTREGA.md](ENTREGA.md).
+Material de apoyo de Inteligencia Artificial para la versión React/FastAPI/Docker. El guion de exposición está en [DEFENSA.md](DEFENSA.md) y la lista de evidencias en [ENTREGA.md](ENTREGA.md).
 
 Este prototipo usa datos sintéticos y representa una red lógica. Las visualizaciones describen cálculos reales, y una anomalía no es una prueba de fraude.
 

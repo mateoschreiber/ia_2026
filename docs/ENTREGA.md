@@ -1,4 +1,4 @@
-# Lista de entrega — Inteligencia Artificial Aplicada
+# Lista de entrega — Inteligencia Artificial
 
 **Proyecto 11:** Predicción de picos de consumo eléctrico y detección de pérdidas no técnicas.
 

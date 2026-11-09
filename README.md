@@ -1,6 +1,6 @@
 # Observatorio energético
 
-Aplicación web de **Inteligencia Artificial Aplicada** para explorar el consumo eléctrico, detectar comportamientos anómalos en medidores y estimar picos de demanda por zona. Es un proyecto de investigación inspirado en los desafíos de supervisión energética de Paraguay.
+Aplicación web de **Inteligencia Artificial** para explorar el consumo eléctrico, detectar comportamientos anómalos en medidores y estimar picos de demanda por zona. Es un proyecto de investigación inspirado en los desafíos de supervisión energética de Paraguay.
 
 ## ¿Qué hace?
 

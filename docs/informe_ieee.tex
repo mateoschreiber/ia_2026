@@ -13,7 +13,7 @@
 Se presenta un prototipo de supervisión energética para explorar picos diarios y patrones anómalos de consumo en un contexto paraguayo. Se generó una red sintética de 100 medidores con lecturas horarias de un año. Para anomalías se compararon Isolation Forest y distancia estandarizada con particiones por medidor; para pronóstico se compararon regresión polinómica y bosque aleatorio mediante separación temporal. En la prueba reservada el detector seleccionado obtuvo F1 de 0,50, con un único caso positivo. El bosque aleatorio alcanzó MAE de 2,36 kW y RMSE de 3,35 kW, frente a 2,79 y 4,12 kW para el pico del día anterior. Una API y un dashboard permiten explorar escenarios de temperatura. Los resultados son preliminares: los datos son simulados y la temperatura futura se considera conocida.
 \end{abstract}
 \begin{IEEEkeywords}
-Inteligencia Artificial Aplicada, demanda eléctrica, anomalías, datos sintéticos, Paraguay
+Inteligencia Artificial, demanda eléctrica, anomalías, datos sintéticos, Paraguay
 \end{IEEEkeywords}
 \section{Introducción y contexto}
 La planificación de demanda y el análisis de pérdidas no técnicas son tareas relevantes en Paraguay. La Administración Nacional de Electricidad (ANDE) relaciona las variaciones de demanda máxima con las condiciones climáticas \cite{ande_demanda} y contempla monitoreo y control en su plan de reducción de pérdidas \cite{ande_perdidas}. Este contexto motiva explorar picos y priorizar revisiones mediante un prototipo académico. Los datos experimentales son sintéticos y no representan mediciones ni indicadores de ANDE.

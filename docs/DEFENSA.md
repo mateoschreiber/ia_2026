@@ -1,6 +1,6 @@
 # Defensa oral y demostración
 
-**Asignatura:** Inteligencia Artificial Aplicada
+**Asignatura:** Inteligencia Artificial
 
 **Ponentes:** Mateo Schreiber y Santiago López
 
